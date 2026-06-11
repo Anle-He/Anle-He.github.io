@@ -1,0 +1,55 @@
+{
+  "education": {
+    "courses": [
+      {
+        "course": "你的专业，博士或硕士",
+        "institution": "你的学校",
+        "year": "2024-至今"
+      },
+      {
+        "course": "你的专业，学士",
+        "institution": "上一所学校",
+        "year": "2020-2024"
+      }
+    ]
+  },
+  "reviewing": [],
+  "timeline": [
+    {
+      "title": "研究生研究员",
+      "company": "你的实验室，你的学校",
+      "companyUrl": "#",
+      "location": "城市",
+      "start": "2024-09-01",
+      "category": "research",
+      "roleType": "research",
+      "isCurrent": true,
+      "summary": "用一句话概括你目前的研究角色。",
+      "highlights": []
+    },
+    {
+      "title": "研究实习生",
+      "company": "研究机构或公司",
+      "companyUrl": "#",
+      "location": "城市",
+      "start": "2023-06-01",
+      "end": "2023-09-01",
+      "category": "industry",
+      "roleType": "mle",
+      "summary": "用一句话说明你参与的团队或项目。",
+      "highlights": []
+    },
+    {
+      "title": "本科生研究助理",
+      "company": "上一段实验室经历",
+      "companyUrl": "#",
+      "location": "城市",
+      "start": "2022-03-01",
+      "end": "2024-06-01",
+      "category": "academic",
+      "roleType": "research",
+      "summary": "简要说明你较早的一段重要研究经历。",
+      "highlights": []
+    }
+  ]
+}

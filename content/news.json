@@ -1,0 +1,35 @@
+[
+  {
+    "type": "publication",
+    "badge": "Publication",
+    "icon": "FaFileAlt",
+    "iconColor": "blue.400",
+    "title": "Add your newest paper, preprint, or acceptance here.",
+    "description": "A short description of the update.",
+    "date": "Jun 2026",
+    "sortDate": "2026-06-01",
+    "links": []
+  },
+  {
+    "type": "project",
+    "badge": "Project",
+    "icon": "FaGithub",
+    "iconColor": "green.400",
+    "title": "Add a project release or open-source milestone.",
+    "description": "A short description of the update.",
+    "date": "May 2026",
+    "sortDate": "2026-05-01",
+    "links": []
+  },
+  {
+    "type": "talk",
+    "badge": "Talk",
+    "icon": "FaMicrophone",
+    "iconColor": "purple.400",
+    "title": "Add a talk, visit, award, or other recent activity.",
+    "description": "A short description of the update.",
+    "date": "Apr 2026",
+    "sortDate": "2026-04-01",
+    "links": []
+  }
+]

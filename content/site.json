@@ -1,0 +1,63 @@
+{
+  "_comment": "Replace the sample values in this file with your own information.",
+  "template": "academic",
+  "components": {},
+  "sections": [],
+  "name": {
+    "full": "Sicheng He",
+    "first": "Sicheng",
+    "nickname": "",
+    "last": "He",
+    "display": "Sicheng He",
+    "authorVariants": ["Sicheng He"]
+  },
+  "title": "Researcher, builder, and lifelong learner.",
+  "tagline": "I study meaningful problems at the intersection of your primary field, your methods, and the people or systems your work serves.",
+  "sourceUrl": "https://github.com/Anle-He/Anle-He.github.io",
+  "avatar": "avatar.svg",
+  "terminal": {
+    "username": "yourname",
+    "rotatingSubtitles": ["research", "build", "write"],
+    "skills": [
+      { "name": "Research Area", "icon": "FaBookOpen" },
+      { "name": "Method", "icon": "FaCode" },
+      { "name": "Topic", "icon": "FaLightbulb" },
+      { "name": "Open Source", "icon": "FaGithub" }
+    ],
+    "timezone": "Asia/Shanghai"
+  },
+  "contact": {
+    "email": "your.email@example.com",
+    "academicEmail": "your.email@example.com",
+    "hiringEmail": "your.email@example.com",
+    "location": "City, Country"
+  },
+  "social": {
+    "github": "https://github.com/Anle-He",
+    "linkedin": "",
+    "medium": "",
+    "googleScholar": "https://scholar.google.com/",
+    "twitter": "",
+    "youtube": "",
+    "bilibili": "",
+    "zhihu": "",
+    "csdn": "",
+    "blog": ""
+  },
+  "pets": [],
+  "features": {
+    "publications": false,
+    "projects": false,
+    "articles": false,
+    "experience": false,
+    "news": true,
+    "pets": false,
+    "guide": false
+  },
+  "heroSocialIcons": [],
+  "selectedPublicationIds": [
+    "sample-paper-one",
+    "sample-paper-two",
+    "sample-paper-three"
+  ]
+}

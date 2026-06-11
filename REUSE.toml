@@ -1,0 +1,40 @@
+# REUSE Specification v3.3
+version = 1
+
+[[annotations]]
+path = [
+  "plugins/**",
+  "src/data/**",
+  "src/hooks/**",
+  "src/i18n.ts",
+  "src/site.config.ts",
+  "src/templates/academic/academicTheme.ts",
+  "src/types/**",
+  "src/utils/asset.ts",
+  "vite.config.ts",
+]
+SPDX-FileCopyrightText = [
+  "2026 Yaoyao(Freax) Qian <limyoonaxi@gmail.com>",
+  "2026 Minimal Academic Terminal Homepage contributors",
+]
+SPDX-License-Identifier = "GPL-3.0-only"
+
+[[annotations]]
+path = [
+  ".github/**",
+  "*.html",
+  "*.json",
+  "*.md",
+  "*.toml",
+  "content/**",
+  "public/**",
+  "scripts/**",
+  "src/App.tsx",
+  "src/index.css",
+  "src/main.tsx",
+  "src/templates/academic/AcademicHome.tsx",
+  "src/templates/academic/AcademicLayout.tsx",
+  "src/utils/safeUrl.ts",
+]
+SPDX-FileCopyrightText = "2026 Minimal Academic Terminal Homepage contributors"
+SPDX-License-Identifier = "GPL-3.0-only"

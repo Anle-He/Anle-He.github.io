@@ -1,0 +1,55 @@
+{
+  "education": {
+    "courses": [
+      {
+        "course": "Ph.D. or M.S. in Your Program",
+        "institution": "Your University",
+        "year": "2024-Present"
+      },
+      {
+        "course": "B.S. in Your Major",
+        "institution": "Previous University",
+        "year": "2020-2024"
+      }
+    ]
+  },
+  "reviewing": [],
+  "timeline": [
+    {
+      "title": "Graduate Researcher",
+      "company": "Your Lab, Your University",
+      "companyUrl": "#",
+      "location": "City",
+      "start": "2024-09-01",
+      "category": "research",
+      "roleType": "research",
+      "isCurrent": true,
+      "summary": "A one-sentence description of your current research role.",
+      "highlights": []
+    },
+    {
+      "title": "Research Intern",
+      "company": "Research Institute or Company",
+      "companyUrl": "#",
+      "location": "City",
+      "start": "2023-06-01",
+      "end": "2023-09-01",
+      "category": "industry",
+      "roleType": "mle",
+      "summary": "A one-sentence description of the project or team.",
+      "highlights": []
+    },
+    {
+      "title": "Undergraduate Research Assistant",
+      "company": "Previous Lab",
+      "companyUrl": "#",
+      "location": "City",
+      "start": "2022-03-01",
+      "end": "2024-06-01",
+      "category": "academic",
+      "roleType": "research",
+      "summary": "Briefly describe your earliest substantial research experience.",
+      "highlights": []
+    }
+  ]
+}
