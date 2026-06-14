@@ -48,6 +48,18 @@ npm run build
 工作流会自动适配根域仓库和普通项目仓库的 URL 前缀。
 如果姓名或邮箱仍是占位值，工作流会主动停止，避免误发布模板信息。
 
+## 参考项目
+
+本项目的实现与设计参考了以下开源项目，感谢原作者的工作：
+
+- [H-Freax/TermHub](https://github.com/H-Freax/TermHub)：代码基础、内容组织、
+  中英双语支持与终端风格交互；原项目采用 `GPL-3.0-only`。
+- [Xin-Jiaqi/minimal-academic-homepage](https://github.com/Xin-Jiaqi/minimal-academic-homepage)：
+  单页学术主页的信息结构与简洁视觉方向。
+
+本仓库已经对页面结构、组件、内容配置和 GitHub Pages 部署流程进行了修改。
+完整的来源、许可与修改说明见 [NOTICE.md](NOTICE.md)。
+
 ## 安全与许可
 
 - 不要向仓库提交密码、令牌、私钥、未公开数据或不希望公开的个人信息。
