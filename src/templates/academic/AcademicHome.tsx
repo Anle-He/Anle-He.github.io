@@ -10,6 +10,7 @@ import {
   GridItem,
   Heading,
   HStack,
+  IconButton,
   Image,
   Link,
   SimpleGrid,
@@ -20,7 +21,8 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react'
-import { useMemo } from 'react'
+import { CheckIcon, CopyIcon } from '@chakra-ui/icons'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocalizedData } from '@/hooks/useLocalizedData'
 import { withBase } from '@/utils/asset'
@@ -47,6 +49,7 @@ const SectionHeading = ({ command, title, id }: { command: string; title: string
 
 const AcademicHome = () => {
   const { i18n } = useTranslation()
+  const [emailCopied, setEmailCopied] = useState(false)
   const {
     about,
     awards,
@@ -72,6 +75,8 @@ const AcademicHome = () => {
         notes: '文章与笔记',
         view: '查看',
         contact: '联系我',
+        copyEmail: '复制邮箱地址',
+        emailCopied: '邮箱地址已复制',
         empty: '请在 content/ 目录中替换为你的真实内容。',
         built: '基于 Minimal Academic Homepage 与 TermHub 改造',
       }
@@ -84,6 +89,8 @@ const AcademicHome = () => {
         notes: 'Posts & Notes',
         view: 'View',
         contact: 'Contact',
+        copyEmail: 'Copy email address',
+        emailCopied: 'Email address copied',
         empty: 'Replace this sample in the content/ directory.',
         built: 'Adapted from Minimal Academic Homepage and TermHub',
       }
@@ -111,6 +118,27 @@ const AcademicHome = () => {
 
   const publicationLinks = (publication: Publication) =>
     Object.entries(publication.links).filter((entry): entry is [string, string] => Boolean(entry[1]))
+
+  const copyEmail = async () => {
+    let copied = false
+
+    try {
+      await navigator.clipboard.writeText(siteOwner.contact.email)
+      copied = true
+    } catch {
+      const input = document.createElement('textarea')
+      input.value = siteOwner.contact.email
+      input.style.position = 'fixed'
+      input.style.opacity = '0'
+      document.body.appendChild(input)
+      input.select()
+      copied = document.execCommand('copy')
+      input.remove()
+    }
+
+    setEmailCopied(copied)
+    if (copied) window.setTimeout(() => setEmailCopied(false), 1800)
+  }
 
   return (
     <Box
@@ -187,36 +215,60 @@ const AcademicHome = () => {
             <Text mt={3} maxW="720px" color={muted} fontSize={['sm', 'md']} lineHeight="1.8">
               {siteConfig.tagline}
             </Text>
-            <Wrap mt={6} spacing={2}>
-              {[
-                siteOwner.contact.email && ['Email', `mailto:${siteOwner.contact.email}`],
-                siteOwner.social.github && ['GitHub', siteOwner.social.github],
-                siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
-                siteOwner.social.blog && ['Blog', siteOwner.social.blog],
-              ].filter(Boolean).map((item) => {
-                const [label, rawHref] = item as string[]
-                const href = safeHref(rawHref)
-                if (!href) return null
-                return (
-                  <WrapItem key={label}>
-                    <Link
-                      href={href}
-                      isExternal={!href.startsWith('mailto:')}
-                      px={3}
-                      py={1.5}
-                      border="1px solid"
-                      borderColor={border}
-                      borderRadius="full"
-                      color={text}
-                      fontSize="sm"
-                      _hover={{ borderColor: '#2a6f6b', color: '#2a6f6b', textDecoration: 'none' }}
-                    >
-                      {label} <Text as="span" color="#2a6f6b">↗</Text>
-                    </Link>
-                  </WrapItem>
-                )
-              })}
-            </Wrap>
+            <Flex mt={6} align="center" gap={3} wrap="wrap">
+              {siteOwner.contact.email && (
+                <HStack spacing={1}>
+                  <Link
+                    href={`mailto:${siteOwner.contact.email}`}
+                    color={muted}
+                    fontFamily="mono"
+                    fontSize="sm"
+                    _hover={{ color: '#2a6f6b', textDecoration: 'none' }}
+                  >
+                    {siteOwner.contact.email}
+                  </Link>
+                  <IconButton
+                    aria-label={emailCopied ? copy.emailCopied : copy.copyEmail}
+                    title={emailCopied ? copy.emailCopied : copy.copyEmail}
+                    icon={emailCopied ? <CheckIcon /> : <CopyIcon />}
+                    onClick={copyEmail}
+                    size="xs"
+                    variant="ghost"
+                    color={emailCopied ? '#2a6f6b' : muted}
+                    fontSize="10px"
+                  />
+                </HStack>
+              )}
+              <Wrap spacing={2}>
+                {[
+                  siteOwner.social.github && ['GitHub', siteOwner.social.github],
+                  siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
+                  siteOwner.social.blog && ['Blog', siteOwner.social.blog],
+                ].filter(Boolean).map((item) => {
+                  const [label, rawHref] = item as string[]
+                  const href = safeHref(rawHref)
+                  if (!href) return null
+                  return (
+                    <WrapItem key={label}>
+                      <Link
+                        href={href}
+                        isExternal
+                        px={3}
+                        py={1.5}
+                        border="1px solid"
+                        borderColor={border}
+                        borderRadius="full"
+                        color={text}
+                        fontSize="sm"
+                        _hover={{ borderColor: '#2a6f6b', color: '#2a6f6b', textDecoration: 'none' }}
+                      >
+                        {label} <Text as="span" color="#2a6f6b">↗</Text>
+                      </Link>
+                    </WrapItem>
+                  )
+                })}
+              </Wrap>
+            </Flex>
           </GridItem>
           <GridItem justifySelf={{ base: 'center', md: 'end' }}>
             <Box
