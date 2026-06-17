@@ -1,9 +1,14 @@
-# Minimal Academic Terminal Homepage
+# Anle He | Personal Academic Homepage
 
-一个可部署到 GitHub Pages 的中英双语个人学术主页。页面采用单页结构，
-以简洁的学术信息展示为主，并保留少量终端风格细节。
+这是一个部署在 GitHub Pages 上的中英双语个人学术主页：
 
-## 本地运行
+[https://anle-he.github.io/](https://anle-he.github.io/)
+
+页面采用单页结构，以个人简介、教育与经历、研究方向、论文、项目和文章笔记为主，
+并保留少量终端风格细节。项目基于 TermHub 改造，并参考
+minimal-academic-homepage 的学术主页信息组织方式。
+
+## 本地维护
 
 需要 Node.js 22 或更高版本。
 
@@ -13,7 +18,9 @@ npm run validate
 npm run dev
 ```
 
-开发地址通常为 `http://127.0.0.1:5173/`。提交前运行：
+开发地址通常为 `http://127.0.0.1:5173/`。
+
+提交或发布前建议运行：
 
 ```bash
 npm run lint
@@ -21,7 +28,7 @@ npm run audit
 npm run build
 ```
 
-## 修改个人资料
+## 内容位置
 
 | 内容 | 英文 | 中文 |
 | --- | --- | --- |
@@ -32,18 +39,18 @@ npm run build
 | 奖项、动态 | `content/awards.json`、`content/news.json` | 对应的 `content/zh/` 文件 |
 | 论文、项目、文章 | `content/publications/` 等目录 | 对应的 `content/zh/` 目录 |
 
-头像放在 `content/images/`。发布前必须替换 `Your Name`、
-`your.email@example.com` 和全部示例内容。
+头像和页面图片放在 `content/images/`。多数日常修改只需要更新 `content/`
+目录下的 JSON 或 Markdown 文件。
 
 ## 部署到 GitHub Pages
 
-1. 在 GitHub 新建 Public 仓库。根域主页建议命名为
-   `你的用户名.github.io`；其他仓库名会部署到子路径。
-2. 在本地执行 `git add .`、`git commit`，添加 GitHub remote 后推送到 `main`。
-3. 打开仓库 `Settings -> Pages`。
-4. 在 `Build and deployment` 中把 Source 设为 `GitHub Actions`。
-5. 打开 `Actions`，等待 `Build and Deploy to GitHub Pages` 成功。
-6. 回到 `Settings -> Pages` 查看最终网址。
+本仓库通过 GitHub Actions 自动部署到 GitHub Pages。日常更新流程：
+
+1. 在本地修改内容或代码。
+2. 运行 `npm run validate`、`npm run lint` 和 `npm run build`。
+3. 提交并推送到 `main`。
+4. 打开仓库 `Actions`，等待 `Build and Deploy to GitHub Pages` 成功。
+5. 如果线上页面短时间内仍显示旧内容，通常是 GitHub Pages 缓存，强制刷新或稍等几分钟即可。
 
 工作流会自动适配根域仓库和普通项目仓库的 URL 前缀。
 如果姓名或邮箱仍是占位值，工作流会主动停止，避免误发布模板信息。
@@ -68,5 +75,5 @@ npm run build
   修改说明，并公开对应源代码。
 - 上游来源和修改说明见 [NOTICE.md](NOTICE.md)。
 
-本项目不提供法律保证；正式发布前仍应由仓库所有者确认自己拥有头像、
-论文插图、机构 Logo 和文字内容的公开使用权。
+本项目不提供法律保证。公开发布前，应确认头像、论文插图、机构 Logo
+和文字内容均具有公开使用权。
