@@ -292,6 +292,52 @@ const AcademicHome = () => {
 
         <VStack align="stretch" spacing={[12, 16]} mt={[12, 16]}>
           <Box>
+            <SectionHeading id="experience" command="git log --career" title={copy.experience} />
+            <Grid templateColumns={{ base: '1fr', lg: '1.35fr 0.65fr' }} gap={4}>
+              <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
+                <VStack align="stretch" spacing={5}>
+                  {experienceTimeline.slice(0, 5).map((item) => (
+                    <Grid key={`${item.title}-${item.start}`} templateColumns="74px 1fr" gap={4}>
+                      <Text fontFamily="mono" fontSize="xs" color="#2a6f6b">
+                        {item.start.slice(0, 4)}
+                      </Text>
+                      <Box borderLeft="1px solid" borderColor={border} pl={4}>
+                        <Text fontWeight="700">{item.title}</Text>
+                        <Text color={muted} fontSize="sm">{item.company} · {item.location}</Text>
+                        {item.summary && <Text color={muted} fontSize="xs" mt={2}>{item.summary}</Text>}
+                      </Box>
+                    </Grid>
+                  ))}
+                </VStack>
+              </Box>
+              <Stack spacing={4}>
+                <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
+                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>education.json</Text>
+                  <VStack align="stretch" spacing={4}>
+                    {experience.education.courses.map((item) => (
+                      <Box key={`${item.course}-${item.institution}`}>
+                        <Text fontWeight="700" fontSize="sm">{item.course}</Text>
+                        <Text color={muted} fontSize="xs" mt={1}>{item.institution} · {item.year}</Text>
+                      </Box>
+                    ))}
+                  </VStack>
+                </Box>
+                <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
+                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>awards.json</Text>
+                  <VStack align="stretch" spacing={3}>
+                    {awards.slice(0, 4).map((award) => (
+                      <Box key={`${award.title}-${award.date}`}>
+                        <Text fontWeight="600" fontSize="sm">{award.title}</Text>
+                        <Text color={muted} fontSize="xs">{award.org} · {award.date}</Text>
+                      </Box>
+                    ))}
+                  </VStack>
+                </Box>
+              </Stack>
+            </Grid>
+          </Box>
+
+          <Box>
             <SectionHeading id="research" command="cat interests.txt" title={copy.research} />
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
               <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
@@ -438,52 +484,6 @@ const AcademicHome = () => {
                 </Box>
               ))}
             </SimpleGrid>
-          </Box>
-
-          <Box>
-            <SectionHeading id="experience" command="git log --career" title={copy.experience} />
-            <Grid templateColumns={{ base: '1fr', lg: '1.35fr 0.65fr' }} gap={4}>
-              <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
-                <VStack align="stretch" spacing={5}>
-                  {experienceTimeline.slice(0, 5).map((item) => (
-                    <Grid key={`${item.title}-${item.start}`} templateColumns="74px 1fr" gap={4}>
-                      <Text fontFamily="mono" fontSize="xs" color="#2a6f6b">
-                        {item.start.slice(0, 4)}
-                      </Text>
-                      <Box borderLeft="1px solid" borderColor={border} pl={4}>
-                        <Text fontWeight="700">{item.title}</Text>
-                        <Text color={muted} fontSize="sm">{item.company} · {item.location}</Text>
-                        {item.summary && <Text color={muted} fontSize="xs" mt={2}>{item.summary}</Text>}
-                      </Box>
-                    </Grid>
-                  ))}
-                </VStack>
-              </Box>
-              <Stack spacing={4}>
-                <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
-                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>education.json</Text>
-                  <VStack align="stretch" spacing={4}>
-                    {experience.education.courses.map((item) => (
-                      <Box key={`${item.course}-${item.institution}`}>
-                        <Text fontWeight="700" fontSize="sm">{item.course}</Text>
-                        <Text color={muted} fontSize="xs" mt={1}>{item.institution} · {item.year}</Text>
-                      </Box>
-                    ))}
-                  </VStack>
-                </Box>
-                <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
-                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>awards.json</Text>
-                  <VStack align="stretch" spacing={3}>
-                    {awards.slice(0, 4).map((award) => (
-                      <Box key={`${award.title}-${award.date}`}>
-                        <Text fontWeight="600" fontSize="sm">{award.title}</Text>
-                        <Text color={muted} fontSize="xs">{award.org} · {award.date}</Text>
-                      </Box>
-                    ))}
-                  </VStack>
-                </Box>
-              </Stack>
-            </Grid>
           </Box>
 
           <Box>
