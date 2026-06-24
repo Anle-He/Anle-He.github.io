@@ -54,6 +54,7 @@ const AcademicHome = () => {
     about,
     awards,
     articles,
+    cities,
     experience,
     experienceTimeline,
     news,
@@ -321,6 +322,38 @@ const AcademicHome = () => {
                       </Box>
                     ))}
                   </VStack>
+                </Box>
+                <Box
+                  id="cities"
+                  bg={card}
+                  border="1px solid"
+                  borderColor={border}
+                  borderRadius="20px"
+                  p={5}
+                  scrollMarginTop="88px"
+                >
+                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>footprints.log</Text>
+                  <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={2} alignItems="start">
+                    {cities.map((item, index) => (
+                      <Box key={`${item.period}-${item.city}`} position="relative">
+                        {index < cities.length - 1 && (
+                          <Box
+                            position="absolute"
+                            top="7px"
+                            left="18px"
+                            right="-10px"
+                            h="1px"
+                            bg={border}
+                          />
+                        )}
+                        <Box position="relative" zIndex={1}>
+                          <Box w="15px" h="15px" borderRadius="full" bg="#2a6f6b" border="3px solid" borderColor={card} />
+                          <Text fontWeight="700" fontSize="sm" mt={3}>{item.city}</Text>
+                          <Text color={muted} fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
+                        </Box>
+                      </Box>
+                    ))}
+                  </Grid>
                 </Box>
                 <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
                   <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>awards.json</Text>

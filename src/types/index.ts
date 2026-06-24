@@ -81,6 +81,12 @@ export interface ExperienceEntry {
   isCurrent?: boolean
 }
 
+export interface CityResidence {
+  period: string
+  city: string
+  country: string
+}
+
 export interface JourneyPhase {
   period: string
   title: string

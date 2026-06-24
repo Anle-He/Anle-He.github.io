@@ -14,7 +14,7 @@
 
 import type {
   Research, Experience, NewsItem, About, Publication,
-  ProjectItem, Award, ExperienceEntry,
+  ProjectItem, Award, ExperienceEntry, CityResidence,
 } from '../types'
 
 // ── Markdown glob imports (each .md → { frontmatter..., body: html }) ──
@@ -90,12 +90,14 @@ function mdToAbout(raw: Record<string, unknown>): About {
 import experienceJsonEn from '@content/experience.json'
 import newsJsonEn from '@content/news.json'
 import awardsJsonEn from '@content/awards.json'
+import citiesJsonEn from '@content/cities.json'
 import researchJsonEn from '@content/research.json'
 import siteJsonEn from '@content/site.json'
 
 import experienceJsonZh from '@content/zh/experience.json'
 import newsJsonZh from '@content/zh/news.json'
 import awardsJsonZh from '@content/zh/awards.json'
+import citiesJsonZh from '@content/zh/cities.json'
 import researchJsonZh from '@content/zh/research.json'
 import siteJsonZh from '@content/zh/site.json'
 
@@ -111,6 +113,7 @@ const enData = {
   experienceTimeline: experienceJsonEn.timeline as ExperienceEntry[],
   news: newsJsonEn as NewsItem[],
   awards: awardsJsonEn as Award[],
+  cities: citiesJsonEn as CityResidence[],
   siteConfig: siteJsonEn,
 }
 
@@ -124,6 +127,7 @@ const zhData = {
   experienceTimeline: experienceJsonZh.timeline as ExperienceEntry[],
   news: newsJsonZh as NewsItem[],
   awards: awardsJsonZh as Award[],
+  cities: citiesJsonZh as CityResidence[],
   siteConfig: siteJsonZh,
 }
 
@@ -147,3 +151,4 @@ export const experience = enData.experience
 export const experienceTimeline = enData.experienceTimeline
 export const news = enData.news
 export const awards = enData.awards
+export const cities = enData.cities
