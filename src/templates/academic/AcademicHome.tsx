@@ -38,7 +38,7 @@ const SectionHeading = ({ command, title, id }: { command: string; title: string
       <Text fontFamily="mono" fontSize="xs" color="#2a6f6b" whiteSpace="nowrap">
         $ {command}
       </Text>
-      <Heading as="h2" fontSize={['xl', '2xl']} letterSpacing="-0.03em">
+      <Heading as="h2" fontSize={['xl', '2xl']} letterSpacing="0">
         {title}
       </Heading>
       <Box h="1px" flex={1} bg={line} />
@@ -174,7 +174,7 @@ const AcademicHome = () => {
 
         <Grid
           templateColumns={{ base: '1fr', md: 'minmax(0, 1fr) auto' }}
-          gap={[7, 10]}
+          gap={[7, 9]}
           alignItems="center"
           bg={card}
           border="1px solid"
@@ -184,8 +184,8 @@ const AcademicHome = () => {
           px={[6, 9, 12]}
           py={[8, 11]}
           boxShadow={useColorModeValue(
-            '0 24px 70px rgba(48, 43, 35, 0.08)',
-            '0 24px 70px rgba(0, 0, 0, 0.28)',
+            '0 20px 54px rgba(48, 43, 35, 0.06)',
+            '0 20px 54px rgba(0, 0, 0, 0.22)',
           )}
         >
           <GridItem>
@@ -195,22 +195,26 @@ const AcademicHome = () => {
               py={1}
               borderRadius="full"
               color="#2a6f6b"
-              bg={useColorModeValue('#e1efec', '#173b3a')}
+              bg={useColorModeValue('rgba(42, 111, 107, 0.09)', 'rgba(143, 201, 196, 0.10)')}
+              border="1px solid"
+              borderColor={useColorModeValue('rgba(42, 111, 107, 0.16)', 'rgba(143, 201, 196, 0.18)')}
               textTransform="none"
               fontFamily="mono"
+              fontWeight="600"
             >
               status: {copy.available}
             </Badge>
             <Heading
               as="h1"
-              fontSize={['4xl', '5xl', '6xl']}
-              lineHeight="0.98"
-              letterSpacing="-0.055em"
+              fontSize={['3xl', '4xl', '5xl']}
+              lineHeight="1.04"
+              letterSpacing="0"
+              fontWeight="700"
               maxW="760px"
             >
               {siteOwner.name.display}
             </Heading>
-            <Text mt={4} fontSize={['lg', 'xl']} color={text} fontWeight="600">
+            <Text mt={4} fontSize={['md', 'lg']} color={text} fontWeight="600">
               {siteConfig.title}
             </Text>
             <Text mt={3} maxW="720px" color={muted} fontSize={['sm', 'md']} lineHeight="1.8">
@@ -273,18 +277,18 @@ const AcademicHome = () => {
           </GridItem>
           <GridItem justifySelf={{ base: 'center', md: 'end' }}>
             <Box
-              p={2}
-              bg={softCard}
+              p={1.5}
+              bg={useColorModeValue('rgba(255, 253, 248, 0.68)', 'rgba(38, 49, 58, 0.62)')}
               border="1px solid"
-              borderColor={border}
-              borderRadius="22px"
+              borderColor={useColorModeValue('rgba(214, 208, 196, 0.72)', 'rgba(52, 64, 75, 0.72)')}
+              borderRadius="20px"
             >
               <Image
                 src={withBase(`images/${siteConfig.avatar}`)}
                 alt={siteOwner.name.display}
-                boxSize={['170px', '205px']}
+                boxSize={['164px', '196px']}
                 objectFit="cover"
-                borderRadius="16px"
+                borderRadius="14px"
               />
             </Box>
           </GridItem>

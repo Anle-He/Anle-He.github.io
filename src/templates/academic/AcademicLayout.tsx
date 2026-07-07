@@ -166,7 +166,7 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
             <Link href="#" minW={0} _hover={{ textDecoration: 'none' }}>
               <HStack spacing={2}>
                 <Text fontFamily="mono" color="#2a6f6b" fontWeight="bold">&gt;_</Text>
-                <Text fontWeight="700" letterSpacing="-0.02em" whiteSpace="nowrap">
+                <Text fontWeight="700" letterSpacing="0" whiteSpace="nowrap">
                   {siteOwner.name.display}
                 </Text>
               </HStack>
