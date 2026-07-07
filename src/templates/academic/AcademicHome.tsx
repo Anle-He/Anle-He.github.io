@@ -278,7 +278,6 @@ const AcademicHome = () => {
               border="1px solid"
               borderColor={border}
               borderRadius="22px"
-              transform={{ md: 'rotate(1.5deg)' }}
             >
               <Image
                 src={withBase(`images/${siteConfig.avatar}`)}
