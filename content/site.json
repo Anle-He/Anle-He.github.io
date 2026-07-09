@@ -45,15 +45,6 @@
     "blog": ""
   },
   "pets": [],
-  "features": {
-    "publications": false,
-    "projects": false,
-    "articles": false,
-    "experience": false,
-    "news": true,
-    "pets": false,
-    "guide": false
-  },
   "heroSocialIcons": [],
   "selectedPublicationIds": [
     "sample-paper-one",
