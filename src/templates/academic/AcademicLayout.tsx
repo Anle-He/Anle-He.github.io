@@ -15,6 +15,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { useEffect, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocalizedData } from '@/hooks/useLocalizedData'
+import { alpha, palette } from '@/templates/academic/academicTheme'
 
 interface ToggleOption<T extends string> {
   value: T
@@ -42,7 +43,7 @@ const SegmentedToggle = <T extends string>({
   const sliderBg = useColorModeValue('#fffdf8', '#26313a')
   const activeColor = useColorModeValue('#18212b', '#f7fafc')
   const inactiveColor = useColorModeValue('#7a858f', '#7f8c98')
-  const focusRing = useColorModeValue('#2a6f6b', '#8fc9c4')
+  const focusRing = useColorModeValue(palette.accent, palette.accentSoft)
   const selectedIndex = options.findIndex((option) => option.value === value)
 
   return (
@@ -119,11 +120,12 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode()
   const { i18n } = useTranslation()
   const { siteOwner } = useLocalizedData()
-  const pageBg = useColorModeValue('#f4f1eb', '#101418')
-  const navBg = useColorModeValue('rgba(244, 241, 235, 0.9)', 'rgba(16, 20, 24, 0.9)')
-  const borderColor = useColorModeValue('#ded8cc', '#2b333d')
-  const textColor = useColorModeValue('#18212b', '#edf2f7')
-  const mutedColor = useColorModeValue('#65717e', '#9aa7b4')
+  const pageBg = useColorModeValue(palette.light.bg, palette.dark.bg)
+  const navBg = useColorModeValue(alpha(palette.light.bg, 0.9), alpha(palette.dark.bg, 0.9))
+  const borderColor = useColorModeValue(palette.light.border, palette.dark.border)
+  const textColor = useColorModeValue(palette.light.text, palette.dark.text)
+  const mutedColor = useColorModeValue(palette.light.muted, palette.dark.muted)
+  const accent = useColorModeValue(palette.accent, palette.accentSoft)
 
   const isZh = i18n.language.toLowerCase().startsWith('zh')
   const language = isZh ? 'zh' : 'en'
@@ -165,7 +167,7 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
           <Flex align="center" justify="space-between" gap={[2, 4]}>
             <Link href="#" minW={0} _hover={{ textDecoration: 'none' }}>
               <HStack spacing={2}>
-                <Text fontFamily="mono" color="#2a6f6b" fontWeight="bold">&gt;_</Text>
+                <Text fontFamily="mono" color={accent} fontWeight="bold">&gt;_</Text>
                 <Text fontWeight="700" letterSpacing="0" whiteSpace="nowrap">
                   {siteOwner.name.display}
                 </Text>

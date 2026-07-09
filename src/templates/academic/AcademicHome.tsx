@@ -25,24 +25,24 @@ import { CheckIcon, CopyIcon } from '@chakra-ui/icons'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocalizedData } from '@/hooks/useLocalizedData'
+import { alpha, palette } from '@/templates/academic/academicTheme'
 import { withBase } from '@/utils/asset'
 import { safeHref } from '@/utils/safeUrl'
 import type { Publication } from '@/types'
 
 const SectionHeading = ({ command, title, id }: { command: string; title: string; id: string }) => {
-  const line = useColorModeValue('#ded8cc', '#2b333d')
-  const muted = useColorModeValue('#65717e', '#9aa7b4')
+  const line = useColorModeValue(palette.light.border, palette.dark.border)
+  const accent = useColorModeValue(palette.accent, palette.accentSoft)
 
   return (
     <Flex id={id} align="center" gap={3} mb={5} scrollMarginTop="88px">
-      <Text fontFamily="mono" fontSize="xs" color="#2a6f6b" whiteSpace="nowrap">
+      <Text fontFamily="mono" fontSize="xs" color={accent} whiteSpace="nowrap">
         $ {command}
       </Text>
       <Heading as="h2" fontSize={['xl', '2xl']} letterSpacing="0">
         {title}
       </Heading>
       <Box h="1px" flex={1} bg={line} />
-      <Text color={muted} fontFamily="mono" fontSize="xs">./</Text>
     </Flex>
   )
 }
@@ -96,13 +96,15 @@ const AcademicHome = () => {
         built: 'Adapted from Minimal Academic Homepage and TermHub',
       }
 
-  const bg = useColorModeValue('#f4f1eb', '#101418')
-  const card = useColorModeValue('rgba(255, 253, 248, 0.92)', 'rgba(23, 28, 34, 0.94)')
-  const softCard = useColorModeValue('#f8f5ef', '#151b21')
-  const border = useColorModeValue('#ded8cc', '#2b333d')
-  const text = useColorModeValue('#18212b', '#edf2f7')
-  const muted = useColorModeValue('#65717e', '#9aa7b4')
-  const terminalBg = useColorModeValue('#152a2f', '#090f12')
+  const bg = useColorModeValue(palette.light.bg, palette.dark.bg)
+  const card = useColorModeValue(palette.light.card, palette.dark.card)
+  const softCard = useColorModeValue(palette.light.softCard, palette.dark.softCard)
+  const border = useColorModeValue(palette.light.border, palette.dark.border)
+  const text = useColorModeValue(palette.light.text, palette.dark.text)
+  const muted = useColorModeValue(palette.light.muted, palette.dark.muted)
+  const terminalBg = useColorModeValue(palette.light.terminalBg, palette.dark.terminalBg)
+  const accent = useColorModeValue(palette.accent, palette.accentSoft)
+  const hoverBorder = useColorModeValue(alpha(palette.accent, 0.4), alpha(palette.accentSoft, 0.4))
 
   const selectedPublications = useMemo(() => {
     const ids = (siteConfig.selectedPublicationIds ?? []) as string[]
@@ -145,15 +147,15 @@ const AcademicHome = () => {
     <Box
       bg={bg}
       backgroundImage={useColorModeValue(
-        'radial-gradient(circle at 10% 0%, rgba(42, 111, 107, 0.10), transparent 34rem)',
-        'radial-gradient(circle at 10% 0%, rgba(134, 200, 195, 0.08), transparent 34rem)',
+        `radial-gradient(circle at 10% 0%, ${alpha(palette.accent, 0.1)}, transparent 34rem)`,
+        `radial-gradient(circle at 10% 0%, ${alpha(palette.accentSoft, 0.08)}, transparent 34rem)`,
       )}
     >
       <Container maxW="1120px" px={[4, 6]} py={[6, 10]}>
         <Box
           bg={terminalBg}
-          color="#dce8e7"
-          borderRadius="18px 18px 0 0"
+          color={palette.terminal.text}
+          borderRadius="20px 20px 0 0"
           px={[4, 6]}
           py={3}
           fontFamily="mono"
@@ -161,12 +163,12 @@ const AcademicHome = () => {
         >
           <Flex justify="space-between" align="center" gap={4}>
             <HStack spacing={2}>
-              <Box w="8px" h="8px" borderRadius="full" bg="#d27a6a" />
-              <Box w="8px" h="8px" borderRadius="full" bg="#d6b25e" />
-              <Box w="8px" h="8px" borderRadius="full" bg="#72a982" />
-              <Text ml={2} color="#8fc9c4">$ whoami --academic</Text>
+              <Box w="8px" h="8px" borderRadius="full" bg={palette.terminal.dotClose} />
+              <Box w="8px" h="8px" borderRadius="full" bg={palette.terminal.dotMinimize} />
+              <Box w="8px" h="8px" borderRadius="full" bg={palette.terminal.dotMaximize} />
+              <Text ml={2} color={palette.accentSoft}>$ whoami --academic</Text>
             </HStack>
-            <Text display={{ base: 'none', sm: 'block' }} color="#84989c">
+            <Text display={{ base: 'none', sm: 'block' }} color={palette.terminal.muted}>
               ~/homepage
             </Text>
           </Flex>
@@ -180,7 +182,7 @@ const AcademicHome = () => {
           border="1px solid"
           borderColor={border}
           borderTop="0"
-          borderRadius="0 0 24px 24px"
+          borderRadius="0 0 20px 20px"
           px={[6, 9, 12]}
           py={[8, 11]}
           boxShadow={useColorModeValue(
@@ -194,10 +196,10 @@ const AcademicHome = () => {
               px={3}
               py={1}
               borderRadius="full"
-              color="#2a6f6b"
-              bg={useColorModeValue('rgba(42, 111, 107, 0.09)', 'rgba(143, 201, 196, 0.10)')}
+              color={accent}
+              bg={useColorModeValue(alpha(palette.accent, 0.09), alpha(palette.accentSoft, 0.1))}
               border="1px solid"
-              borderColor={useColorModeValue('rgba(42, 111, 107, 0.16)', 'rgba(143, 201, 196, 0.18)')}
+              borderColor={useColorModeValue(alpha(palette.accent, 0.16), alpha(palette.accentSoft, 0.18))}
               textTransform="none"
               fontFamily="mono"
               fontWeight="600"
@@ -228,7 +230,7 @@ const AcademicHome = () => {
                     color={muted}
                     fontFamily="mono"
                     fontSize="sm"
-                    _hover={{ color: '#2a6f6b', textDecoration: 'none' }}
+                    _hover={{ color: accent, textDecoration: 'none' }}
                   >
                     {siteOwner.contact.email}
                   </Link>
@@ -239,7 +241,7 @@ const AcademicHome = () => {
                     onClick={copyEmail}
                     size="xs"
                     variant="ghost"
-                    color={emailCopied ? '#2a6f6b' : muted}
+                    color={emailCopied ? accent : muted}
                     fontSize="10px"
                   />
                 </HStack>
@@ -265,9 +267,9 @@ const AcademicHome = () => {
                         borderRadius="full"
                         color={text}
                         fontSize="sm"
-                        _hover={{ borderColor: '#2a6f6b', color: '#2a6f6b', textDecoration: 'none' }}
+                        _hover={{ borderColor: accent, color: accent, textDecoration: 'none' }}
                       >
-                        {label} <Text as="span" color="#2a6f6b">↗</Text>
+                        {label} <Text as="span" color={accent}>↗</Text>
                       </Link>
                     </WrapItem>
                   )
@@ -281,14 +283,14 @@ const AcademicHome = () => {
               bg={useColorModeValue('rgba(255, 253, 248, 0.68)', 'rgba(38, 49, 58, 0.62)')}
               border="1px solid"
               borderColor={useColorModeValue('rgba(214, 208, 196, 0.72)', 'rgba(52, 64, 75, 0.72)')}
-              borderRadius="20px"
+              borderRadius="full"
             >
               <Image
                 src={withBase(`images/${siteConfig.avatar}`)}
                 alt={siteOwner.name.display}
                 boxSize={['164px', '196px']}
                 objectFit="cover"
-                borderRadius="14px"
+                borderRadius="full"
               />
             </Box>
           </GridItem>
@@ -302,7 +304,7 @@ const AcademicHome = () => {
                 <VStack align="stretch" spacing={5}>
                   {experienceTimeline.slice(0, 5).map((item) => (
                     <Grid key={`${item.title}-${item.start}`} templateColumns="74px 1fr" gap={4}>
-                      <Text fontFamily="mono" fontSize="xs" color="#2a6f6b">
+                      <Text fontFamily="mono" fontSize="xs" color={accent}>
                         {item.start.slice(0, 4)}
                       </Text>
                       <Box borderLeft="1px solid" borderColor={border} pl={4}>
@@ -316,7 +318,7 @@ const AcademicHome = () => {
               </Box>
               <Stack spacing={4}>
                 <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
-                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>education.json</Text>
+                  <Text fontFamily="mono" color={accent} fontSize="xs" mb={4}>education.json</Text>
                   <VStack align="stretch" spacing={4}>
                     {experience.education.courses.map((item) => (
                       <Box key={`${item.course}-${item.institution}`}>
@@ -335,11 +337,11 @@ const AcademicHome = () => {
                   p={5}
                   scrollMarginTop="88px"
                 >
-                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>footprints.log</Text>
+                  <Text fontFamily="mono" color={accent} fontSize="xs" mb={4}>footprints.log</Text>
                   <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={2} alignItems="start">
                     {cities.map((item, index) => (
                       <Box key={`${item.period}-${item.city}`} position="relative">
-                        {index < cities.length - 1 && (
+                        {index < cities.length - 1 && index % 3 !== 2 && (
                           <Box
                             position="absolute"
                             top="7px"
@@ -350,7 +352,7 @@ const AcademicHome = () => {
                           />
                         )}
                         <Box position="relative" zIndex={1}>
-                          <Box w="15px" h="15px" borderRadius="full" bg="#2a6f6b" border="3px solid" borderColor={card} />
+                          <Box w="15px" h="15px" borderRadius="full" bg={accent} border="3px solid" borderColor={card} />
                           <Text fontWeight="700" fontSize="sm" mt={3}>{item.city}</Text>
                           <Text color={muted} fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
                         </Box>
@@ -359,7 +361,7 @@ const AcademicHome = () => {
                   </Grid>
                 </Box>
                 <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
-                  <Text fontFamily="mono" color="#2a6f6b" fontSize="xs" mb={4}>awards.json</Text>
+                  <Text fontFamily="mono" color={accent} fontSize="xs" mb={4}>awards.json</Text>
                   <VStack align="stretch" spacing={3}>
                     {awards.slice(0, 4).map((award) => (
                       <Box key={`${award.title}-${award.date}`}>
@@ -390,7 +392,7 @@ const AcademicHome = () => {
                         borderRadius="full"
                         fontFamily="mono"
                         fontSize="xs"
-                        color="#2a6f6b"
+                        color={accent}
                       >
                         {skill.name}
                       </Text>
@@ -401,11 +403,11 @@ const AcademicHome = () => {
               <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
                 <VStack align="stretch" spacing={4}>
                   {research.currentResearch.map((item, index) => (
-                    <Link key={item.lab} href={safeHref(item.link)} isExternal _hover={{ textDecoration: 'none' }}>
+                    <Link key={item.lab} href={safeHref(item.link)} isExternal role="group" _hover={{ textDecoration: 'none' }}>
                       <Flex gap={3} align="start">
-                        <Text fontFamily="mono" color="#2a6f6b">0{index + 1}</Text>
+                        <Text fontFamily="mono" color={accent}>0{index + 1}</Text>
                         <Box>
-                          <Text fontWeight="700">{item.lab}</Text>
+                          <Text fontWeight="700" transition="color 160ms ease" _groupHover={{ color: accent }}>{item.lab}</Text>
                           <Text color={muted} fontSize="sm" mt={1}>{item.focus}</Text>
                           {item.advisor && <Text color={muted} fontSize="xs" mt={1}>{item.advisor}</Text>}
                         </Box>
@@ -428,8 +430,12 @@ const AcademicHome = () => {
                   bg={card}
                   border="1px solid"
                   borderColor={border}
+                  borderLeftWidth={index === 0 ? '3px' : '1px'}
+                  borderLeftColor={index === 0 ? accent : border}
                   borderRadius="20px"
                   p={[5, 6]}
+                  transition="border-color 160ms ease"
+                  _hover={{ borderColor: hoverBorder, borderLeftColor: accent }}
                 >
                   {publication.featuredImage && (
                     <Image
@@ -439,13 +445,13 @@ const AcademicHome = () => {
                       h="140px"
                       objectFit="contain"
                       bg={softCard}
-                      borderRadius="14px"
+                      borderRadius="12px"
                       p={2}
                     />
                   )}
                   <Box>
                     <HStack spacing={3} mb={2}>
-                      <Text fontFamily="mono" color="#2a6f6b" fontSize="xs">
+                      <Text fontFamily="mono" color={accent} fontSize="xs">
                         paper_{String(index + 1).padStart(2, '0')}
                       </Text>
                       <Text color={muted} fontSize="xs">{publication.venue} · {publication.year}</Text>
@@ -467,7 +473,7 @@ const AcademicHome = () => {
                           key={label}
                           href={safeHref(href)}
                           isExternal
-                          color="#2a6f6b"
+                          color={accent}
                           fontFamily="mono"
                           fontSize="xs"
                         >
@@ -490,13 +496,15 @@ const AcademicHome = () => {
                   bg={card}
                   border="1px solid"
                   borderColor={border}
-                  borderRadius="18px"
+                  borderRadius="20px"
                   p={5}
                   minH="230px"
                   display="flex"
                   flexDirection="column"
+                  transition="border-color 160ms ease"
+                  _hover={{ borderColor: hoverBorder }}
                 >
-                  <Text fontFamily="mono" fontSize="xs" color="#2a6f6b">
+                  <Text fontFamily="mono" fontSize="xs" color={accent}>
                     {String(index + 1).padStart(2, '0')}/{project.category}
                   </Text>
                   <Heading as="h3" fontSize="lg" mt={3}>{project.title}</Heading>
@@ -513,7 +521,7 @@ const AcademicHome = () => {
                     ))}
                   </Wrap>
                   {project.link && (
-                    <Link href={safeHref(project.link)} isExternal color="#2a6f6b" fontFamily="mono" fontSize="xs" mt={4}>
+                    <Link href={safeHref(project.link)} isExternal color={accent} fontFamily="mono" fontSize="xs" mt={4}>
                       {copy.view} ↗
                     </Link>
                   )}
@@ -532,25 +540,26 @@ const AcademicHome = () => {
                       key={article.title}
                       href={safeHref(article.link) || '#'}
                       isExternal={Boolean(article.link)}
+                      role="group"
                       _hover={{ textDecoration: 'none' }}
                     >
                       <Flex justify="space-between" gap={4}>
                         <Box>
-                          <Text fontWeight="700" fontSize="sm">{article.title}</Text>
+                          <Text fontWeight="700" fontSize="sm" transition="color 160ms ease" _groupHover={{ color: accent }}>{article.title}</Text>
                           <Text color={muted} fontSize="xs" mt={1} noOfLines={2}>{article.summary}</Text>
                         </Box>
-                        <Text color="#2a6f6b">↗</Text>
+                        <Text color={accent}>↗</Text>
                       </Flex>
                     </Link>
                   ))}
                 </VStack>
               </Box>
-              <Box bg={terminalBg} color="#dce8e7" borderRadius="20px" p={[5, 7]} fontFamily="mono">
-                <Text color="#8fc9c4" fontSize="xs" mb={4}>$ latest --limit 3</Text>
+              <Box bg={terminalBg} color={palette.terminal.text} borderRadius="20px" p={[5, 7]} fontFamily="mono">
+                <Text color={palette.accentSoft} fontSize="xs" mb={4}>$ latest --limit 3</Text>
                 <VStack align="stretch" spacing={4}>
                   {latestNews.map((item) => (
                     <Box key={item.title}>
-                      <Text fontSize="xs" color="#84989c">{item.date} / {item.type}</Text>
+                      <Text fontSize="xs" color={palette.terminal.muted}>{item.date} / {item.type}</Text>
                       <Text fontSize="sm" mt={1}>{item.title}</Text>
                     </Box>
                   ))}

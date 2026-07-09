@@ -15,5 +15,6 @@ html {
 
 ::selection {
   color: #f8fafc;
+  /* Must match palette.accent in src/templates/academic/academicTheme.ts */
   background: #2a6f6b;
 }
