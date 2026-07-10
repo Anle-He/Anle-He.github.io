@@ -39,8 +39,18 @@ npm run build
 | 奖项、动态 | `content/awards.json`、`content/news.json` | 对应的 `content/zh/` 文件 |
 | 论文、项目、文章 | `content/publications/` 等目录 | 对应的 `content/zh/` 目录 |
 
-头像和页面图片放在 `content/images/`。多数日常修改只需要更新 `content/`
-目录下的 JSON 或 Markdown 文件。
+头像和页面图片放在 `content/images/`。头像在页面上以圆形展示，
+建议使用正方形图片，透明底 PNG 效果最佳（深色模式下不会露出底色）。
+多数日常修改只需要更新 `content/` 目录下的 JSON 或 Markdown 文件。
+
+## 主题与配色
+
+全站颜色集中定义在 `src/templates/academic/academicTheme.ts` 的
+`palette` 中，包括强调色（`accent` / 深色模式用 `accentSoft`）与
+浅色、深色两套底色、边框和文字颜色。想更换主题色时只需修改
+`palette`，无需在组件中逐处查找。唯一的例外是 `src/index.css`
+中的文字选中高亮色，需与 `palette.accent` 手动保持一致
+（文件内有注释标注）。中英文字体栈也在同一文件中配置。
 
 ## 部署到 GitHub Pages
 
