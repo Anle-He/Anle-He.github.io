@@ -10,6 +10,7 @@
 
 import siteJson from '@content/site.json'
 import siteJsonZh from '@content/zh/site.json'
+import { isZhLang } from './utils/lang'
 
 // ═══════════════════════════════════════════════════════════════
 // The config object — mirrors content/site.json
@@ -20,29 +21,22 @@ export const siteConfigZh = siteJsonZh
 
 /** Get site config for a given language. Accepts region-suffixed codes (zh-CN, zh-TW, ...). */
 export function getLocalizedSiteConfig(lang: string) {
-  return lang?.toLowerCase().startsWith('zh') ? siteConfigZh : siteJson
+  return isZhLang(lang) ? siteConfigZh : siteJson
 }
 
 // ═══════════════════════════════════════════════════════════════
 // Derived values — computed automatically, do NOT edit
 // ═══════════════════════════════════════════════════════════════
 
-/** Build a siteOwner-like object for a given language */
+/** Build a siteOwner-like object for a given language.
+ *  Only fields the templates actually render are exposed; everything
+ *  is guarded so a trimmed-down site.json cannot crash the app. */
 export function getLocalizedSiteOwner(lang: string) {
   const cfg = getLocalizedSiteConfig(lang)
   return {
-    name: cfg.name,
-    terminalUsername: cfg.terminal.username,
-    rotatingSubtitles: cfg.terminal.rotatingSubtitles,
-    contact: {
-      email: cfg.contact.email,
-      academicEmail: cfg.contact.academicEmail,
-      hiringEmail: cfg.contact.hiringEmail,
-      location: cfg.contact.location,
-      linkedin: cfg.social.linkedin,
-    },
-    social: cfg.social,
-    timezone: cfg.terminal.timezone,
-    skills: cfg.terminal.skills,
+    name: cfg.name ?? { display: '' },
+    contact: { email: cfg.contact?.email ?? '' },
+    social: cfg.social ?? {},
+    skills: cfg.skills ?? [],
   }
 }

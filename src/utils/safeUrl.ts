@@ -8,8 +8,11 @@ export function safeHref(value?: string): string | undefined {
 
   try {
     const url = new URL(href)
-    return url.protocol === 'https:' ? href : undefined
+    return url.protocol === 'https:' || url.protocol === 'http:' ? href : undefined
   } catch {
+    if (import.meta.env?.DEV) {
+      console.warn(`safeHref: dropping invalid or non-http(s) URL: ${href}`)
+    }
     return undefined
   }
 }

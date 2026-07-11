@@ -6,7 +6,7 @@
  *
  * Usage in code:
  *   import project from '@content/projects/my-project.md'
- *   // project.title, project.tags, project.body (HTML string)
+ *   // project.title, project.tags, project.body (raw Markdown string, NOT HTML)
  */
 
 import type { Plugin } from 'vite'

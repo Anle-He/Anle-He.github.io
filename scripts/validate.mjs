@@ -20,7 +20,7 @@ function readJson(relativePath) {
 }
 
 const siteFiles = ['content/site.json', 'content/zh/site.json']
-const dataFiles = ['research.json', 'experience.json', 'awards.json', 'news.json']
+const dataFiles = ['research.json', 'experience.json', 'awards.json', 'news.json', 'cities.json']
 
 for (const siteFile of siteFiles) {
   const site = readJson(siteFile)
@@ -31,7 +31,7 @@ for (const siteFile of siteFiles) {
   if (!existsSync(avatarPath)) errors.push(`${siteFile}: avatar file is missing`)
 
   const serialized = JSON.stringify(site)
-  if (/Your Name|your\.email@example\.com|your-username/.test(serialized)) {
+  if (/Your Name|your\.email@example\.com|your-username|yourname|City, Country|城市，国家/.test(serialized)) {
     const message = `${siteFile}: still contains placeholder identity values`
     if (process.env.REQUIRE_PERSONALIZED === 'true') errors.push(message)
     else warnings.push(message)

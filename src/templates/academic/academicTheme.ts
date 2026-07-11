@@ -53,10 +53,48 @@ const academicTheme = extendTheme({
     heading: 'Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
     mono: '"SFMono-Regular", Consolas, "Liberation Mono", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", monospace',
   },
+  // Mode-aware color tokens: components use these names directly
+  // (e.g. color="accent") and Chakra resolves light/dark automatically.
+  semanticTokens: {
+    colors: {
+      appBg: { default: palette.light.bg, _dark: palette.dark.bg },
+      cardBg: { default: palette.light.card, _dark: palette.dark.card },
+      softCardBg: { default: palette.light.softCard, _dark: palette.dark.softCard },
+      borderSubtle: { default: palette.light.border, _dark: palette.dark.border },
+      textPrimary: { default: palette.light.text, _dark: palette.dark.text },
+      textMuted: { default: palette.light.muted, _dark: palette.dark.muted },
+      terminalBg: { default: palette.light.terminalBg, _dark: palette.dark.terminalBg },
+      accent: { default: palette.accent, _dark: palette.accentSoft },
+      accentHoverBorder: {
+        default: alpha(palette.accent, 0.4),
+        _dark: alpha(palette.accentSoft, 0.4),
+      },
+      accentSubtleBg: {
+        default: alpha(palette.accent, 0.09),
+        _dark: alpha(palette.accentSoft, 0.1),
+      },
+      accentSubtleBorder: {
+        default: alpha(palette.accent, 0.16),
+        _dark: alpha(palette.accentSoft, 0.18),
+      },
+    },
+  },
+  layerStyles: {
+    card: {
+      bg: 'cardBg',
+      border: '1px solid',
+      borderColor: 'borderSubtle',
+      borderRadius: '20px',
+    },
+  },
   styles: {
     global: {
       body: {
         margin: 0,
+      },
+      '::selection': {
+        color: '#f8fafc',
+        background: palette.accent,
       },
     },
   },

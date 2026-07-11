@@ -30,25 +30,22 @@ import { withBase } from '@/utils/asset'
 import { safeHref } from '@/utils/safeUrl'
 import type { Publication } from '@/types'
 
-const SectionHeading = ({ command, title, id }: { command: string; title: string; id: string }) => {
-  const line = useColorModeValue(palette.light.border, palette.dark.border)
-  const accent = useColorModeValue(palette.accent, palette.accentSoft)
+const FOOTPRINT_COLUMNS = 3
 
-  return (
-    <Flex id={id} align="center" gap={3} mb={5} scrollMarginTop="88px">
-      <Text fontFamily="mono" fontSize="xs" color={accent} whiteSpace="nowrap">
-        $ {command}
-      </Text>
-      <Heading as="h2" fontSize={['xl', '2xl']} letterSpacing="0">
-        {title}
-      </Heading>
-      <Box h="1px" flex={1} bg={line} />
-    </Flex>
-  )
-}
+const SectionHeading = ({ command, title, id }: { command: string; title: string; id: string }) => (
+  <Flex id={id} align="center" gap={3} mb={5} scrollMarginTop="88px">
+    <Text fontFamily="mono" fontSize="xs" color="accent" whiteSpace="nowrap">
+      $ {command}
+    </Text>
+    <Heading as="h2" fontSize={['xl', '2xl']} letterSpacing="0">
+      {title}
+    </Heading>
+    <Box h="1px" flex={1} bg="borderSubtle" />
+  </Flex>
+)
 
 const AcademicHome = () => {
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const [emailCopied, setEmailCopied] = useState(false)
   const {
     about,
@@ -65,47 +62,6 @@ const AcademicHome = () => {
     siteOwner,
   } = useLocalizedData()
 
-  const isZh = i18n.language.toLowerCase().startsWith('zh')
-  const copy = isZh
-    ? {
-        available: '开放交流与合作',
-        research: '研究方向',
-        publications: '代表性论文',
-        projects: '项目',
-        experience: '教育与经历',
-        notes: '文章与笔记',
-        view: '查看',
-        contact: '联系我',
-        copyEmail: '复制邮箱地址',
-        emailCopied: '邮箱地址已复制',
-        empty: '请在 content/ 目录中替换为你的真实内容。',
-        built: '基于 Minimal Academic Homepage 与 TermHub 改造',
-      }
-    : {
-        available: 'Open to collaboration',
-        research: 'Research',
-        publications: 'Selected Publications',
-        projects: 'Projects',
-        experience: 'Education & Experience',
-        notes: 'Posts & Notes',
-        view: 'View',
-        contact: 'Contact',
-        copyEmail: 'Copy email address',
-        emailCopied: 'Email address copied',
-        empty: 'Replace this sample in the content/ directory.',
-        built: 'Adapted from Minimal Academic Homepage and TermHub',
-      }
-
-  const bg = useColorModeValue(palette.light.bg, palette.dark.bg)
-  const card = useColorModeValue(palette.light.card, palette.dark.card)
-  const softCard = useColorModeValue(palette.light.softCard, palette.dark.softCard)
-  const border = useColorModeValue(palette.light.border, palette.dark.border)
-  const text = useColorModeValue(palette.light.text, palette.dark.text)
-  const muted = useColorModeValue(palette.light.muted, palette.dark.muted)
-  const terminalBg = useColorModeValue(palette.light.terminalBg, palette.dark.terminalBg)
-  const accent = useColorModeValue(palette.accent, palette.accentSoft)
-  const hoverBorder = useColorModeValue(alpha(palette.accent, 0.4), alpha(palette.accentSoft, 0.4))
-
   const selectedPublications = useMemo(() => {
     const ids = (siteConfig.selectedPublicationIds ?? []) as string[]
     const selected = ids
@@ -120,7 +76,9 @@ const AcademicHome = () => {
   )
 
   const publicationLinks = (publication: Publication) =>
-    Object.entries(publication.links).filter((entry): entry is [string, string] => Boolean(entry[1]))
+    Object.entries(publication.links)
+      .map(([label, href]) => [label, safeHref(href)] as const)
+      .filter((entry): entry is readonly [string, string] => Boolean(entry[1]))
 
   const copyEmail = async () => {
     let copied = false
@@ -145,7 +103,7 @@ const AcademicHome = () => {
 
   return (
     <Box
-      bg={bg}
+      bg="appBg"
       backgroundImage={useColorModeValue(
         `radial-gradient(circle at 10% 0%, ${alpha(palette.accent, 0.1)}, transparent 34rem)`,
         `radial-gradient(circle at 10% 0%, ${alpha(palette.accentSoft, 0.08)}, transparent 34rem)`,
@@ -153,7 +111,7 @@ const AcademicHome = () => {
     >
       <Container maxW="1120px" px={[4, 6]} py={[6, 10]}>
         <Box
-          bg={terminalBg}
+          bg="terminalBg"
           color={palette.terminal.text}
           borderRadius="20px 20px 0 0"
           px={[4, 6]}
@@ -178,9 +136,7 @@ const AcademicHome = () => {
           templateColumns={{ base: '1fr', md: 'minmax(0, 1fr) auto' }}
           gap={[7, 9]}
           alignItems="center"
-          bg={card}
-          border="1px solid"
-          borderColor={border}
+          layerStyle="card"
           borderTop="0"
           borderRadius="0 0 20px 20px"
           px={[6, 9, 12]}
@@ -196,15 +152,15 @@ const AcademicHome = () => {
               px={3}
               py={1}
               borderRadius="full"
-              color={accent}
-              bg={useColorModeValue(alpha(palette.accent, 0.09), alpha(palette.accentSoft, 0.1))}
+              color="accent"
+              bg="accentSubtleBg"
               border="1px solid"
-              borderColor={useColorModeValue(alpha(palette.accent, 0.16), alpha(palette.accentSoft, 0.18))}
+              borderColor="accentSubtleBorder"
               textTransform="none"
               fontFamily="mono"
               fontWeight="600"
             >
-              status: {copy.available}
+              status: {t('available')}
             </Badge>
             <Heading
               as="h1"
@@ -216,10 +172,10 @@ const AcademicHome = () => {
             >
               {siteOwner.name.display}
             </Heading>
-            <Text mt={4} fontSize={['md', 'lg']} color={text} fontWeight="600">
+            <Text mt={4} fontSize={['md', 'lg']} color="textPrimary" fontWeight="600">
               {siteConfig.title}
             </Text>
-            <Text mt={3} maxW="720px" color={muted} fontSize={['sm', 'md']} lineHeight="1.8">
+            <Text mt={3} maxW="720px" color="textMuted" fontSize={['sm', 'md']} lineHeight="1.8">
               {siteConfig.tagline}
             </Text>
             <Flex mt={6} align="center" gap={3} wrap="wrap">
@@ -227,21 +183,21 @@ const AcademicHome = () => {
                 <HStack spacing={1}>
                   <Link
                     href={`mailto:${siteOwner.contact.email}`}
-                    color={muted}
+                    color="textMuted"
                     fontFamily="mono"
                     fontSize="sm"
-                    _hover={{ color: accent, textDecoration: 'none' }}
+                    _hover={{ color: 'accent', textDecoration: 'none' }}
                   >
                     {siteOwner.contact.email}
                   </Link>
                   <IconButton
-                    aria-label={emailCopied ? copy.emailCopied : copy.copyEmail}
-                    title={emailCopied ? copy.emailCopied : copy.copyEmail}
+                    aria-label={emailCopied ? t('emailCopied') : t('copyEmail')}
+                    title={emailCopied ? t('emailCopied') : t('copyEmail')}
                     icon={emailCopied ? <CheckIcon /> : <CopyIcon />}
                     onClick={copyEmail}
                     size="xs"
                     variant="ghost"
-                    color={emailCopied ? accent : muted}
+                    color={emailCopied ? 'accent' : 'textMuted'}
                     fontSize="10px"
                   />
                 </HStack>
@@ -263,13 +219,13 @@ const AcademicHome = () => {
                         px={3}
                         py={1.5}
                         border="1px solid"
-                        borderColor={border}
+                        borderColor="borderSubtle"
                         borderRadius="full"
-                        color={text}
+                        color="textPrimary"
                         fontSize="sm"
-                        _hover={{ borderColor: accent, color: accent, textDecoration: 'none' }}
+                        _hover={{ borderColor: 'accent', color: 'accent', textDecoration: 'none' }}
                       >
-                        {label} <Text as="span" color={accent}>↗</Text>
+                        {label} <Text as="span" color="accent">↗</Text>
                       </Link>
                     </WrapItem>
                   )
@@ -298,75 +254,67 @@ const AcademicHome = () => {
 
         <VStack align="stretch" spacing={[12, 16]} mt={[12, 16]}>
           <Box>
-            <SectionHeading id="experience" command="git log --career" title={copy.experience} />
+            <SectionHeading id="experience" command="git log --career" title={t('experience')} />
             <Grid templateColumns={{ base: '1fr', lg: '1.35fr 0.65fr' }} gap={4}>
-              <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
+              <Box layerStyle="card" p={[5, 7]}>
                 <VStack align="stretch" spacing={5}>
                   {experienceTimeline.slice(0, 5).map((item) => (
                     <Grid key={`${item.title}-${item.start}`} templateColumns="74px 1fr" gap={4}>
-                      <Text fontFamily="mono" fontSize="xs" color={accent}>
+                      <Text fontFamily="mono" fontSize="xs" color="accent">
                         {item.start.slice(0, 4)}
                       </Text>
-                      <Box borderLeft="1px solid" borderColor={border} pl={4}>
+                      <Box borderLeft="1px solid" borderColor="borderSubtle" pl={4}>
                         <Text fontWeight="700">{item.title}</Text>
-                        <Text color={muted} fontSize="sm">{item.company} · {item.location}</Text>
-                        {item.summary && <Text color={muted} fontSize="xs" mt={2}>{item.summary}</Text>}
+                        <Text color="textMuted" fontSize="sm">{item.company} · {item.location}</Text>
+                        {item.summary && <Text color="textMuted" fontSize="xs" mt={2}>{item.summary}</Text>}
                       </Box>
                     </Grid>
                   ))}
                 </VStack>
               </Box>
               <Stack spacing={4}>
-                <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
-                  <Text fontFamily="mono" color={accent} fontSize="xs" mb={4}>education.json</Text>
+                <Box layerStyle="card" p={5}>
+                  <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>education.json</Text>
                   <VStack align="stretch" spacing={4}>
                     {experience.education.courses.map((item) => (
                       <Box key={`${item.course}-${item.institution}`}>
                         <Text fontWeight="700" fontSize="sm">{item.course}</Text>
-                        <Text color={muted} fontSize="xs" mt={1}>{item.institution} · {item.year}</Text>
+                        <Text color="textMuted" fontSize="xs" mt={1}>{item.institution} · {item.year}</Text>
                       </Box>
                     ))}
                   </VStack>
                 </Box>
-                <Box
-                  id="cities"
-                  bg={card}
-                  border="1px solid"
-                  borderColor={border}
-                  borderRadius="20px"
-                  p={5}
-                  scrollMarginTop="88px"
-                >
-                  <Text fontFamily="mono" color={accent} fontSize="xs" mb={4}>footprints.log</Text>
-                  <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={2} alignItems="start">
+                <Box id="cities" layerStyle="card" p={5} scrollMarginTop="88px">
+                  <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>footprints.log</Text>
+                  <Grid templateColumns={`repeat(${FOOTPRINT_COLUMNS}, minmax(0, 1fr))`} gap={2} alignItems="start">
                     {cities.map((item, index) => (
                       <Box key={`${item.period}-${item.city}`} position="relative">
-                        {index < cities.length - 1 && index % 3 !== 2 && (
+                        {index < cities.length - 1 && index % FOOTPRINT_COLUMNS !== FOOTPRINT_COLUMNS - 1 && (
                           <Box
                             position="absolute"
                             top="7px"
                             left="18px"
                             right="-10px"
                             h="1px"
-                            bg={border}
+                            bg="borderSubtle"
                           />
                         )}
                         <Box position="relative" zIndex={1}>
-                          <Box w="15px" h="15px" borderRadius="full" bg={accent} border="3px solid" borderColor={card} />
+                          <Box w="15px" h="15px" borderRadius="full" bg="accent" border="3px solid" borderColor="cardBg" />
                           <Text fontWeight="700" fontSize="sm" mt={3}>{item.city}</Text>
-                          <Text color={muted} fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
+                          <Text color="textMuted" fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
                         </Box>
                       </Box>
                     ))}
                   </Grid>
                 </Box>
-                <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={5}>
-                  <Text fontFamily="mono" color={accent} fontSize="xs" mb={4}>awards.json</Text>
+                <Box layerStyle="card" p={5}>
+                  <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>awards.json</Text>
                   <VStack align="stretch" spacing={3}>
                     {awards.slice(0, 4).map((award) => (
                       <Box key={`${award.title}-${award.date}`}>
                         <Text fontWeight="600" fontSize="sm">{award.title}</Text>
-                        <Text color={muted} fontSize="xs">{award.org} · {award.date}</Text>
+                        <Text color="textMuted" fontSize="xs">{award.org} · {award.date}</Text>
                       </Box>
                     ))}
                   </VStack>
@@ -376,11 +324,11 @@ const AcademicHome = () => {
           </Box>
 
           <Box>
-            <SectionHeading id="research" command="cat interests.txt" title={copy.research} />
+            <SectionHeading id="research" command="cat interests.txt" title={t('research')} />
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-              <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
-                <Text color={muted} fontSize="sm" lineHeight="1.9">
-                  {about.journey || copy.empty}
+              <Box layerStyle="card" p={[5, 7]}>
+                <Text color="textMuted" fontSize="sm" lineHeight="1.9">
+                  {about.journey || t('empty')}
                 </Text>
                 <Wrap mt={5} spacing={2}>
                   {siteOwner.skills.map((skill) => (
@@ -388,11 +336,11 @@ const AcademicHome = () => {
                       <Text
                         px={3}
                         py={1}
-                        bg={softCard}
+                        bg="softCardBg"
                         borderRadius="full"
                         fontFamily="mono"
                         fontSize="xs"
-                        color={accent}
+                        color="accent"
                       >
                         {skill.name}
                       </Text>
@@ -400,42 +348,48 @@ const AcademicHome = () => {
                   ))}
                 </Wrap>
               </Box>
-              <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
+              <Box layerStyle="card" p={[5, 7]}>
                 <VStack align="stretch" spacing={4}>
-                  {research.currentResearch.map((item, index) => (
-                    <Link key={item.lab} href={safeHref(item.link)} isExternal role="group" _hover={{ textDecoration: 'none' }}>
-                      <Flex gap={3} align="start">
-                        <Text fontFamily="mono" color={accent}>0{index + 1}</Text>
-                        <Box>
-                          <Text fontWeight="700" transition="color 160ms ease" _groupHover={{ color: accent }}>{item.lab}</Text>
-                          <Text color={muted} fontSize="sm" mt={1}>{item.focus}</Text>
-                          {item.advisor && <Text color={muted} fontSize="xs" mt={1}>{item.advisor}</Text>}
-                        </Box>
-                      </Flex>
-                    </Link>
-                  ))}
+                  {research.currentResearch.map((item, index) => {
+                    const href = safeHref(item.link)
+                    return (
+                      <Link
+                        key={`${item.lab}-${index}`}
+                        href={href}
+                        isExternal={Boolean(href)}
+                        role="group"
+                        _hover={{ textDecoration: 'none' }}
+                      >
+                        <Flex gap={3} align="start">
+                          <Text fontFamily="mono" color="accent">0{index + 1}</Text>
+                          <Box>
+                            <Text fontWeight="700" transition="color 160ms ease" _groupHover={{ color: 'accent' }}>{item.lab}</Text>
+                            <Text color="textMuted" fontSize="sm" mt={1}>{item.focus}</Text>
+                            {item.advisor && <Text color="textMuted" fontSize="xs" mt={1}>{item.advisor}</Text>}
+                          </Box>
+                        </Flex>
+                      </Link>
+                    )
+                  })}
                 </VStack>
               </Box>
             </SimpleGrid>
           </Box>
 
           <Box>
-            <SectionHeading id="publications" command="ls papers/" title={copy.publications} />
+            <SectionHeading id="publications" command="ls papers/" title={t('publications')} />
             <VStack align="stretch" spacing={4}>
               {selectedPublications.map((publication, index) => (
                 <Grid
                   key={publication.id}
                   templateColumns={{ base: '1fr', md: publication.featuredImage ? '220px 1fr' : '1fr' }}
                   gap={5}
-                  bg={card}
-                  border="1px solid"
-                  borderColor={border}
+                  layerStyle="card"
                   borderLeftWidth={index === 0 ? '3px' : '1px'}
-                  borderLeftColor={index === 0 ? accent : border}
-                  borderRadius="20px"
+                  borderLeftColor={index === 0 ? 'accent' : 'borderSubtle'}
                   p={[5, 6]}
                   transition="border-color 160ms ease"
-                  _hover={{ borderColor: hoverBorder, borderLeftColor: accent }}
+                  _hover={{ borderColor: 'accentHoverBorder', borderLeftColor: 'accent' }}
                 >
                   {publication.featuredImage && (
                     <Image
@@ -444,26 +398,26 @@ const AcademicHome = () => {
                       w="full"
                       h="140px"
                       objectFit="contain"
-                      bg={softCard}
+                      bg="softCardBg"
                       borderRadius="12px"
                       p={2}
                     />
                   )}
                   <Box>
                     <HStack spacing={3} mb={2}>
-                      <Text fontFamily="mono" color={accent} fontSize="xs">
+                      <Text fontFamily="mono" color="accent" fontSize="xs">
                         paper_{String(index + 1).padStart(2, '0')}
                       </Text>
-                      <Text color={muted} fontSize="xs">{publication.venue} · {publication.year}</Text>
+                      <Text color="textMuted" fontSize="xs">{publication.venue} · {publication.year}</Text>
                     </HStack>
                     <Heading as="h3" fontSize={['lg', 'xl']} lineHeight="1.35">
                       {publication.title}
                     </Heading>
-                    <Text color={muted} fontSize="sm" mt={2}>
+                    <Text color="textMuted" fontSize="sm" mt={2}>
                       {publication.authors.join(', ')}
                     </Text>
                     {publication.abstract && (
-                      <Text color={muted} fontSize="sm" mt={3} noOfLines={2} lineHeight="1.7">
+                      <Text color="textMuted" fontSize="sm" mt={3} noOfLines={2} lineHeight="1.7">
                         {publication.abstract}
                       </Text>
                     )}
@@ -471,9 +425,9 @@ const AcademicHome = () => {
                       {publicationLinks(publication).map(([label, href]) => (
                         <Link
                           key={label}
-                          href={safeHref(href)}
+                          href={href}
                           isExternal
-                          color={accent}
+                          color="accent"
                           fontFamily="mono"
                           fontSize="xs"
                         >
@@ -488,41 +442,38 @@ const AcademicHome = () => {
           </Box>
 
           <Box>
-            <SectionHeading id="projects" command="find projects -maxdepth 1" title={copy.projects} />
+            <SectionHeading id="projects" command="find projects -maxdepth 1" title={t('projects')} />
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
               {projects.slice(0, 3).map((project, index) => (
                 <Box
                   key={project.title}
-                  bg={card}
-                  border="1px solid"
-                  borderColor={border}
-                  borderRadius="20px"
+                  layerStyle="card"
                   p={5}
                   minH="230px"
                   display="flex"
                   flexDirection="column"
                   transition="border-color 160ms ease"
-                  _hover={{ borderColor: hoverBorder }}
+                  _hover={{ borderColor: 'accentHoverBorder' }}
                 >
-                  <Text fontFamily="mono" fontSize="xs" color={accent}>
+                  <Text fontFamily="mono" fontSize="xs" color="accent">
                     {String(index + 1).padStart(2, '0')}/{project.category}
                   </Text>
                   <Heading as="h3" fontSize="lg" mt={3}>{project.title}</Heading>
-                  <Text color={muted} fontSize="sm" mt={3} lineHeight="1.7" flex={1}>
+                  <Text color="textMuted" fontSize="sm" mt={3} lineHeight="1.7" flex={1}>
                     {project.summary}
                   </Text>
                   <Wrap mt={4} spacing={1.5}>
                     {project.tags.slice(0, 3).map((tag) => (
                       <WrapItem key={tag}>
-                        <Text px={2} py={0.5} bg={softCard} borderRadius="full" fontSize="2xs" color={muted}>
+                        <Text px={2} py={0.5} bg="softCardBg" borderRadius="full" fontSize="2xs" color="textMuted">
                           {tag}
                         </Text>
                       </WrapItem>
                     ))}
                   </Wrap>
                   {project.link && (
-                    <Link href={safeHref(project.link)} isExternal color={accent} fontFamily="mono" fontSize="xs" mt={4}>
-                      {copy.view} ↗
+                    <Link href={safeHref(project.link)} isExternal color="accent" fontFamily="mono" fontSize="xs" mt={4}>
+                      {t('view')} ↗
                     </Link>
                   )}
                 </Box>
@@ -531,30 +482,33 @@ const AcademicHome = () => {
           </Box>
 
           <Box>
-            <SectionHeading id="notes" command="tail -n 6 updates.log" title={copy.notes} />
+            <SectionHeading id="notes" command="tail -n 6 updates.log" title={t('notes')} />
             <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
-              <Box bg={card} border="1px solid" borderColor={border} borderRadius="20px" p={[5, 7]}>
+              <Box layerStyle="card" p={[5, 7]}>
                 <VStack align="stretch" spacing={4}>
-                  {articles.slice(0, 4).map((article) => (
-                    <Link
-                      key={article.title}
-                      href={safeHref(article.link) || '#'}
-                      isExternal={Boolean(article.link)}
-                      role="group"
-                      _hover={{ textDecoration: 'none' }}
-                    >
-                      <Flex justify="space-between" gap={4}>
-                        <Box>
-                          <Text fontWeight="700" fontSize="sm" transition="color 160ms ease" _groupHover={{ color: accent }}>{article.title}</Text>
-                          <Text color={muted} fontSize="xs" mt={1} noOfLines={2}>{article.summary}</Text>
-                        </Box>
-                        <Text color={accent}>↗</Text>
-                      </Flex>
-                    </Link>
-                  ))}
+                  {articles.slice(0, 4).map((article) => {
+                    const href = safeHref(article.link)
+                    return (
+                      <Link
+                        key={article.title}
+                        href={href || '#'}
+                        isExternal={Boolean(href)}
+                        role="group"
+                        _hover={{ textDecoration: 'none' }}
+                      >
+                        <Flex justify="space-between" gap={4}>
+                          <Box>
+                            <Text fontWeight="700" fontSize="sm" transition="color 160ms ease" _groupHover={{ color: 'accent' }}>{article.title}</Text>
+                            <Text color="textMuted" fontSize="xs" mt={1} noOfLines={2}>{article.summary}</Text>
+                          </Box>
+                          <Text color="accent">↗</Text>
+                        </Flex>
+                      </Link>
+                    )
+                  })}
                 </VStack>
               </Box>
-              <Box bg={terminalBg} color={palette.terminal.text} borderRadius="20px" p={[5, 7]} fontFamily="mono">
+              <Box bg="terminalBg" color={palette.terminal.text} borderRadius="20px" p={[5, 7]} fontFamily="mono">
                 <Text color={palette.accentSoft} fontSize="xs" mb={4}>$ latest --limit 3</Text>
                 <VStack align="stretch" spacing={4}>
                   {latestNews.map((item) => (
@@ -575,18 +529,18 @@ const AcademicHome = () => {
           pt={7}
           pb={4}
           borderTop="1px solid"
-          borderColor={border}
-          color={muted}
+          borderColor="borderSubtle"
+          color="textMuted"
           fontSize="xs"
         >
           <Flex direction={{ base: 'column', sm: 'row' }} justify="space-between" gap={3}>
-            <Text>© {new Date().getFullYear()} {siteOwner.name.display}. {copy.built}.</Text>
+            <Text>© {new Date().getFullYear()} {siteOwner.name.display}. {t('built')}.</Text>
             <HStack spacing={4}>
-              <Link href={`mailto:${siteOwner.contact.email}`} color={muted}>{copy.contact}</Link>
-              <Link href={safeHref(siteConfig.sourceUrl)} isExternal color={muted}>Source</Link>
-              <Link href="https://www.gnu.org/licenses/gpl-3.0.html" isExternal color={muted}>GPL-3.0</Link>
-              <Link href="https://github.com/H-Freax/TermHub" isExternal color={muted}>TermHub</Link>
-              <Link href="https://github.com/Xin-Jiaqi/minimal-academic-homepage" isExternal color={muted}>
+              <Link href={`mailto:${siteOwner.contact.email}`} color="textMuted">{t('contact')}</Link>
+              <Link href={safeHref(siteConfig.sourceUrl)} isExternal color="textMuted">Source</Link>
+              <Link href="https://www.gnu.org/licenses/gpl-3.0.html" isExternal color="textMuted">GPL-3.0</Link>
+              <Link href="https://github.com/H-Freax/TermHub" isExternal color="textMuted">TermHub</Link>
+              <Link href="https://github.com/Xin-Jiaqi/minimal-academic-homepage" isExternal color="textMuted">
                 Minimal Academic
               </Link>
             </HStack>

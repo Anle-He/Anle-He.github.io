@@ -16,6 +16,7 @@ import { useEffect, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocalizedData } from '@/hooks/useLocalizedData'
 import { alpha, palette } from '@/templates/academic/academicTheme'
+import { isZhLang } from '@/utils/lang'
 
 interface ToggleOption<T extends string> {
   value: T
@@ -43,7 +44,6 @@ const SegmentedToggle = <T extends string>({
   const sliderBg = useColorModeValue('#fffdf8', '#26313a')
   const activeColor = useColorModeValue('#18212b', '#f7fafc')
   const inactiveColor = useColorModeValue('#7a858f', '#7f8c98')
-  const focusRing = useColorModeValue(palette.accent, palette.accentSoft)
   const selectedIndex = options.findIndex((option) => option.value === value)
 
   return (
@@ -106,7 +106,7 @@ const SegmentedToggle = <T extends string>({
             lineHeight={1}
             transition="color 180ms ease"
             _hover={{ color: activeColor }}
-            _focusVisible={{ outline: `2px solid ${focusRing}`, outlineOffset: '2px' }}
+            _focusVisible={{ outline: '2px solid', outlineColor: 'accent', outlineOffset: '2px' }}
           >
             {option.label}
           </Box>
@@ -118,41 +118,27 @@ const SegmentedToggle = <T extends string>({
 
 const AcademicLayout = ({ children }: { children: ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode()
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { siteOwner } = useLocalizedData()
-  const pageBg = useColorModeValue(palette.light.bg, palette.dark.bg)
   const navBg = useColorModeValue(alpha(palette.light.bg, 0.9), alpha(palette.dark.bg, 0.9))
-  const borderColor = useColorModeValue(palette.light.border, palette.dark.border)
-  const textColor = useColorModeValue(palette.light.text, palette.dark.text)
-  const mutedColor = useColorModeValue(palette.light.muted, palette.dark.muted)
-  const accent = useColorModeValue(palette.accent, palette.accentSoft)
 
-  const isZh = i18n.language.toLowerCase().startsWith('zh')
-  const language = isZh ? 'zh' : 'en'
+  const language = isZhLang(i18n.language) ? 'zh' : 'en'
 
   useEffect(() => {
     document.title = `${siteOwner.name.display} | Academic Homepage`
-    document.documentElement.lang = isZh ? 'zh-CN' : 'en'
-  }, [isZh, siteOwner.name.display])
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en'
+  }, [language, siteOwner.name.display])
 
-  const navItems = isZh
-    ? [
-        ['研究', 'research'],
-        ['论文', 'publications'],
-        ['项目', 'projects'],
-        ['经历', 'experience'],
-        ['笔记', 'notes'],
-      ]
-    : [
-        ['Research', 'research'],
-        ['Publications', 'publications'],
-        ['Projects', 'projects'],
-        ['Experience', 'experience'],
-        ['Notes', 'notes'],
-      ]
+  const navItems = [
+    [t('nav.research'), 'research'],
+    [t('nav.publications'), 'publications'],
+    [t('nav.projects'), 'projects'],
+    [t('nav.experience'), 'experience'],
+    [t('nav.notes'), 'notes'],
+  ]
 
   return (
-    <Box minH="100vh" bg={pageBg} color={textColor}>
+    <Box minH="100vh" bg="appBg" color="textPrimary">
       <Box
         as="header"
         position="sticky"
@@ -160,14 +146,14 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
         zIndex={20}
         bg={navBg}
         borderBottom="1px solid"
-        borderColor={borderColor}
+        borderColor="borderSubtle"
         backdropFilter="blur(18px)"
       >
         <Container maxW="1120px" px={[4, 6]} py={3}>
           <Flex align="center" justify="space-between" gap={[2, 4]}>
             <Link href="#" minW={0} _hover={{ textDecoration: 'none' }}>
               <HStack spacing={2}>
-                <Text fontFamily="mono" color={accent} fontWeight="bold">&gt;_</Text>
+                <Text fontFamily="mono" color="accent" fontWeight="bold">&gt;_</Text>
                 <Text fontWeight="700" letterSpacing="0" whiteSpace="nowrap">
                   {siteOwner.name.display}
                 </Text>
@@ -180,9 +166,9 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
                   <Link
                     key={id}
                     href={`#${id}`}
-                    color={mutedColor}
+                    color="textMuted"
                     fontSize="sm"
-                    _hover={{ color: textColor, textDecoration: 'none' }}
+                    _hover={{ color: 'textPrimary', textDecoration: 'none' }}
                   >
                     {label}
                   </Link>
@@ -193,28 +179,28 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
                 <SegmentedToggle
                   value={language}
                   width="76px"
-                  ariaLabel={isZh ? '语言选择' : 'Language selection'}
+                  ariaLabel={t('languageAria')}
                   onChange={(nextLanguage) => i18n.changeLanguage(nextLanguage)}
                   options={[
-                    { value: 'zh', label: '中', ariaLabel: '切换为中文' },
-                    { value: 'en', label: 'EN', ariaLabel: 'Switch to English' },
+                    { value: 'zh', label: '中', ariaLabel: t('switchToZh') },
+                    { value: 'en', label: 'EN', ariaLabel: t('switchToEn') },
                   ]}
                 />
                 <SegmentedToggle
                   value={colorMode}
                   width="68px"
-                  ariaLabel={isZh ? '配色模式' : 'Color mode'}
+                  ariaLabel={t('colorModeAria')}
                   onChange={setColorMode}
                   options={[
                     {
                       value: 'light',
                       label: <SunIcon boxSize="12px" />,
-                      ariaLabel: isZh ? '切换为浅色模式' : 'Switch to light mode',
+                      ariaLabel: t('switchToLight'),
                     },
                     {
                       value: 'dark',
                       label: <MoonIcon boxSize="11px" />,
-                      ariaLabel: isZh ? '切换为深色模式' : 'Switch to dark mode',
+                      ariaLabel: t('switchToDark'),
                     },
                   ]}
                 />

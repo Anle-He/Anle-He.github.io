@@ -15,22 +15,14 @@
   "tagline": "I study meaningful problems at the intersection of your primary field, your methods, and the people or systems your work serves.",
   "sourceUrl": "https://github.com/Anle-He/Anle-He.github.io",
   "avatar": "starward-avatar.png",
-  "terminal": {
-    "username": "yourname",
-    "rotatingSubtitles": ["research", "build", "write"],
-    "skills": [
-      { "name": "Research Area", "icon": "FaBookOpen" },
-      { "name": "Method", "icon": "FaCode" },
-      { "name": "Topic", "icon": "FaLightbulb" },
-      { "name": "Open Source", "icon": "FaGithub" }
-    ],
-    "timezone": "Asia/Shanghai"
-  },
+  "skills": [
+    { "name": "Research Area", "icon": "FaBookOpen" },
+    { "name": "Method", "icon": "FaCode" },
+    { "name": "Topic", "icon": "FaLightbulb" },
+    { "name": "Open Source", "icon": "FaGithub" }
+  ],
   "contact": {
-    "email": "sicheng_he@163.com",
-    "academicEmail": "",
-    "hiringEmail": "",
-    "location": "City, Country"
+    "email": "sicheng_he@163.com"
   },
   "social": {
     "github": "https://github.com/Anle-He",
