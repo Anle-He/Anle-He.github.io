@@ -4,12 +4,14 @@
       {
         "course": "Master's Degree",
         "institution": "Beijing University of Technology",
-        "year": "2023.09 - 2026.06"
+        "year": "2023.09 - 2026.06",
+        "location": "Chaoyang, Beijing"
       },
       {
         "course": "Bachelor's Degree",
         "institution": "Northeastern University at Qinhuangdao",
-        "year": "2019.08 - 2023.06"
+        "year": "2019.08 - 2023.06",
+        "location": "Qinhuangdao, Hebei"
       }
     ]
   },

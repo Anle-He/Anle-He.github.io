@@ -42,6 +42,7 @@ export interface Experience {
       course: string
       institution: string
       year: string
+      location?: string
     }[]
   }
   reviewing?: {

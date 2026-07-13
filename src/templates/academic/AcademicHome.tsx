@@ -103,7 +103,7 @@ const AcademicHome = () => {
       sortKey: course.year.slice(0, 7).replace('.', '-'),
       range: course.year,
       title: course.course,
-      subtitle: course.institution,
+      subtitle: [course.institution, course.location].filter(Boolean).join(' · '),
       kind: 'edu' as const,
       current: false,
     }))
@@ -303,36 +303,35 @@ const AcademicHome = () => {
                     >
                       <Flex direction="column" align="center">
                         {/* Node shape encodes the entry type: teal diamond = work,
-                            gold circle = education; the current role gets a halo. */}
-                        {entry.kind === 'work' ? (
-                          <Box
-                            w="10px"
-                            h="10px"
-                            m="3px"
-                            transform="rotate(45deg)"
-                            borderRadius="2px"
-                            bg="accent"
-                            boxShadow={entry.current ? '0 0 0 4px var(--chakra-colors-accentSubtleBg)' : undefined}
-                            flexShrink={0}
-                            mt="5px"
-                          />
-                        ) : (
-                          <Box
-                            w="13px"
-                            h="13px"
-                            borderRadius="full"
-                            bg="cardBg"
-                            border="3px solid"
-                            borderColor="accentGold"
-                            flexShrink={0}
-                            mt="4px"
-                          />
-                        )}
+                            gold circle = education; the current role gets a halo.
+                            Both sit centered in an equal-height slot so they share
+                            the same vertical rhythm. */}
+                        <Flex h="20px" align="center" justify="center" flexShrink={0}>
+                          {entry.kind === 'work' ? (
+                            <Box
+                              w="10px"
+                              h="10px"
+                              transform="rotate(45deg)"
+                              borderRadius="2px"
+                              bg="accent"
+                              boxShadow={entry.current ? '0 0 0 4px var(--chakra-colors-accentSubtleBg)' : undefined}
+                            />
+                          ) : (
+                            <Box
+                              w="13px"
+                              h="13px"
+                              borderRadius="full"
+                              bg="cardBg"
+                              border="3px solid"
+                              borderColor="accentGold"
+                            />
+                          )}
+                        </Flex>
                         {index < careerEntries.length - 1 && (
                           <Box
                             w="1px"
                             flex={1}
-                            mt="4px"
+                            mt="2px"
                             bgGradient={
                               entry.current
                                 ? 'linear(to-b, accentSubtleBorder, borderSubtle)'
@@ -364,16 +363,30 @@ const AcademicHome = () => {
                         </Text>
                       </Box>
                       <Box pb={index < careerEntries.length - 1 ? 6 : 0}>
-                        <Text fontWeight="700">{entry.title}</Text>
-                        <Text
-                          display={{ base: 'block', md: 'none' }}
-                          fontFamily="mono"
-                          fontSize="xs"
-                          color={entry.current ? 'accent' : 'textMuted'}
-                          mt={1}
-                        >
-                          {entry.range}
+                        <Text fontWeight="700" color={entry.current ? 'accent' : undefined}>
+                          {entry.title}
                         </Text>
+                        <Box display={{ base: 'block', md: 'none' }} mt={1}>
+                          <Text
+                            as="span"
+                            fontFamily="mono"
+                            fontSize="xs"
+                            whiteSpace="nowrap"
+                            {...(entry.current
+                              ? {
+                                  color: 'accent',
+                                  bg: 'accentSubtleBg',
+                                  border: '1px solid',
+                                  borderColor: 'accentSubtleBorder',
+                                  borderRadius: 'md',
+                                  px: 2,
+                                  py: '2px',
+                                }
+                              : { color: 'textMuted' })}
+                          >
+                            {entry.range}
+                          </Text>
+                        </Box>
                         <Text color="textMuted" fontSize="sm" mt={1}>{entry.subtitle}</Text>
                       </Box>
                     </Grid>
@@ -397,9 +410,27 @@ const AcademicHome = () => {
                             <Text fontWeight="700" fontSize="sm" color={isCurrentCity ? 'accent' : undefined}>
                               {item.city}
                             </Text>
-                            <Text color="textMuted" fontFamily="mono" fontSize="2xs" mt={1}>
-                              {item.period}
-                            </Text>
+                            <Box mt={1}>
+                              <Text
+                                as="span"
+                                fontFamily="mono"
+                                fontSize="2xs"
+                                whiteSpace="nowrap"
+                                {...(isCurrentCity
+                                  ? {
+                                      color: 'accent',
+                                      bg: 'accentSubtleBg',
+                                      border: '1px solid',
+                                      borderColor: 'accentSubtleBorder',
+                                      borderRadius: 'md',
+                                      px: 2,
+                                      py: '1px',
+                                    }
+                                  : { color: 'textMuted' })}
+                              >
+                                {item.period}
+                              </Text>
+                            </Box>
                           </Box>
                         </Fragment>
                       )
