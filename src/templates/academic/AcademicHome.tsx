@@ -22,7 +22,7 @@ import {
   WrapItem,
 } from '@chakra-ui/react'
 import { CheckIcon, CopyIcon } from '@chakra-ui/icons'
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocalizedData } from '@/hooks/useLocalizedData'
 import { alpha, palette } from '@/templates/academic/academicTheme'
@@ -30,9 +30,18 @@ import { withBase } from '@/utils/asset'
 import { safeHref } from '@/utils/safeUrl'
 import type { Publication } from '@/types'
 
-const FOOTPRINT_COLUMNS = 3
-
 const formatYearMonth = (value: string) => value.slice(0, 7).replace('-', '.')
+
+// Mono "filename" label with a fading rule, used to separate card subsections
+// without a hard full-width border.
+const FileLabel = ({ children }: { children: string }) => (
+  <Flex align="center" gap={3} mb={5}>
+    <Text fontFamily="mono" color="accent" fontSize="xs" whiteSpace="nowrap">
+      {children}
+    </Text>
+    <Box flex={1} h="1px" bgGradient="linear(to-r, borderSubtle, transparent)" />
+  </Flex>
+)
 
 const SectionHeading = ({ command, title, id }: { command: string; title: string; id: string }) => (
   <Flex id={id} align="center" gap={3} mb={5} scrollMarginTop="88px">
@@ -76,6 +85,31 @@ const AcademicHome = () => {
     () => [...news].sort((a, b) => (b.sortDate ?? '').localeCompare(a.sortDate ?? '')).slice(0, 3),
     [news],
   )
+
+  // Work timeline and education merged into one git-log style track,
+  // newest first. Education years look like "2023.09 - 2026.06".
+  const careerEntries = useMemo(() => {
+    const work = experienceTimeline.map((item) => ({
+      key: `${item.title}-${item.start}`,
+      sortKey: item.start.slice(0, 7),
+      range: `${formatYearMonth(item.start)} - ${item.end ? formatYearMonth(item.end) : t('present')}`,
+      title: item.title,
+      subtitle: [item.company, item.location].filter(Boolean).join(' · '),
+      kind: 'work' as const,
+      current: Boolean(item.isCurrent) || !item.end,
+    }))
+    const education = experience.education.courses.map((course) => ({
+      key: `${course.course}-${course.institution}`,
+      sortKey: course.year.slice(0, 7).replace('.', '-'),
+      range: course.year,
+      title: course.course,
+      subtitle: course.institution,
+      kind: 'edu' as const,
+      current: false,
+    }))
+    return [...work, ...education].sort((a, b) => b.sortKey.localeCompare(a.sortKey))
+  }, [experienceTimeline, experience.education.courses, t])
+
 
   const publicationLinks = (publication: Publication) =>
     Object.entries(publication.links)
@@ -259,83 +293,139 @@ const AcademicHome = () => {
             <SectionHeading id="experience" command="git log --career" title={t('experience')} />
             <Stack spacing={4}>
               <Box layerStyle="card" p={[5, 7]}>
-                <Grid templateColumns={{ base: '1fr', md: '1.15fr 0.85fr' }} gap={[8, 10]}>
-                  <Box>
-                    <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>career.log</Text>
-                    <VStack align="stretch" spacing={5}>
-                      {experienceTimeline.slice(0, 5).map((item) => (
-                        <Grid key={`${item.title}-${item.start}`} templateColumns="84px 1fr" gap={4}>
-                          <Box fontFamily="mono" fontSize="xs" pt="2px">
-                            <Text color="accent">{formatYearMonth(item.start)}</Text>
-                            <Text color="textMuted" mt={1}>
-                              {item.end ? formatYearMonth(item.end) : t('present')}
+                <FileLabel>career.log</FileLabel>
+                <VStack align="stretch" spacing={0}>
+                  {careerEntries.map((entry, index) => (
+                    <Grid
+                      key={entry.key}
+                      templateColumns={{ base: '17px 1fr', md: '17px 158px 1fr' }}
+                      columnGap={4}
+                    >
+                      <Flex direction="column" align="center">
+                        {/* Node shape encodes the entry type: teal diamond = work,
+                            gold circle = education; the current role gets a halo. */}
+                        {entry.kind === 'work' ? (
+                          <Box
+                            w="10px"
+                            h="10px"
+                            m="3px"
+                            transform="rotate(45deg)"
+                            borderRadius="2px"
+                            bg="accent"
+                            boxShadow={entry.current ? '0 0 0 4px var(--chakra-colors-accentSubtleBg)' : undefined}
+                            flexShrink={0}
+                            mt="5px"
+                          />
+                        ) : (
+                          <Box
+                            w="13px"
+                            h="13px"
+                            borderRadius="full"
+                            bg="cardBg"
+                            border="3px solid"
+                            borderColor="accentGold"
+                            flexShrink={0}
+                            mt="4px"
+                          />
+                        )}
+                        {index < careerEntries.length - 1 && (
+                          <Box
+                            w="1px"
+                            flex={1}
+                            mt="4px"
+                            bgGradient={
+                              entry.current
+                                ? 'linear(to-b, accentSubtleBorder, borderSubtle)'
+                                : undefined
+                            }
+                            bg={entry.current ? undefined : 'borderSubtle'}
+                          />
+                        )}
+                      </Flex>
+                      <Box display={{ base: 'none', md: 'block' }}>
+                        <Text
+                          as="span"
+                          fontFamily="mono"
+                          fontSize="xs"
+                          whiteSpace="nowrap"
+                          {...(entry.current
+                            ? {
+                                color: 'accent',
+                                bg: 'accentSubtleBg',
+                                border: '1px solid',
+                                borderColor: 'accentSubtleBorder',
+                                borderRadius: 'md',
+                                px: 2,
+                                py: '2px',
+                              }
+                            : { color: 'textMuted' })}
+                        >
+                          {entry.range}
+                        </Text>
+                      </Box>
+                      <Box pb={index < careerEntries.length - 1 ? 6 : 0}>
+                        <Text fontWeight="700">{entry.title}</Text>
+                        <Text
+                          display={{ base: 'block', md: 'none' }}
+                          fontFamily="mono"
+                          fontSize="xs"
+                          color={entry.current ? 'accent' : 'textMuted'}
+                          mt={1}
+                        >
+                          {entry.range}
+                        </Text>
+                        <Text color="textMuted" fontSize="sm" mt={1}>{entry.subtitle}</Text>
+                      </Box>
+                    </Grid>
+                  ))}
+                </VStack>
+                <Box id="cities" scrollMarginTop="88px" mt={[7, 9]}>
+                  <FileLabel>footprints.log</FileLabel>
+                  {/* Terminal-style route: stops joined by mono `»`, the
+                      current city highlighted in accent. */}
+                  <Flex align="center" wrap="wrap" columnGap={[4, 6]} rowGap={4}>
+                    {cities.map((item, index) => {
+                      const isCurrentCity = index === cities.length - 1
+                      return (
+                        <Fragment key={`${item.period}-${item.city}`}>
+                          {index > 0 && (
+                            <Text fontFamily="mono" fontSize="md" color="accent" opacity={0.6} aria-hidden="true">
+                              »
+                            </Text>
+                          )}
+                          <Box>
+                            <Text fontWeight="700" fontSize="sm" color={isCurrentCity ? 'accent' : undefined}>
+                              {item.city}
+                            </Text>
+                            <Text color="textMuted" fontFamily="mono" fontSize="2xs" mt={1}>
+                              {item.period}
                             </Text>
                           </Box>
-                          <Box borderLeft="1px solid" borderColor="borderSubtle" pl={4}>
-                            <Text fontWeight="700">{item.title}</Text>
-                            <Text color="textMuted" fontSize="sm">{item.company} · {item.location}</Text>
-                            {item.summary && <Text color="textMuted" fontSize="xs" mt={2}>{item.summary}</Text>}
-                          </Box>
-                        </Grid>
-                      ))}
-                    </VStack>
-                  </Box>
-                  <Box>
-                    <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>education.json</Text>
-                    <VStack align="stretch" spacing={5}>
-                      {experience.education.courses.map((item) => (
-                        <Grid key={`${item.course}-${item.institution}`} templateColumns="84px 1fr" gap={4}>
-                          <Box fontFamily="mono" fontSize="xs" pt="2px">
-                            {item.year.split(' - ').map((part, index) => (
-                              <Text key={part} color={index === 0 ? 'accent' : 'textMuted'} mt={index === 0 ? 0 : 1}>
-                                {part}
-                              </Text>
-                            ))}
-                          </Box>
-                          <Box borderLeft="1px solid" borderColor="borderSubtle" pl={4}>
-                            <Text fontWeight="700" fontSize="sm">{item.course}</Text>
-                            <Text color="textMuted" fontSize="xs" mt={1}>{item.institution}</Text>
-                          </Box>
-                        </Grid>
-                      ))}
-                    </VStack>
-                  </Box>
-                </Grid>
-                <Box borderTop="1px solid" borderColor="borderSubtle" mt={[6, 8]} pt={[5, 6]}>
-                  <Box id="cities" scrollMarginTop="88px">
-                    <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>footprints.log</Text>
-                    <Grid templateColumns={`repeat(${FOOTPRINT_COLUMNS}, minmax(0, 1fr))`} gap={2} alignItems="start">
-                      {cities.map((item, index) => (
-                        <Box key={`${item.period}-${item.city}`} position="relative">
-                          {index < cities.length - 1 && index % FOOTPRINT_COLUMNS !== FOOTPRINT_COLUMNS - 1 && (
-                            <Box
-                              position="absolute"
-                              top="7px"
-                              left="18px"
-                              right="-10px"
-                              h="1px"
-                              bg="borderSubtle"
-                            />
-                          )}
-                          <Box position="relative" zIndex={1}>
-                            <Box w="15px" h="15px" borderRadius="full" bg="accent" border="3px solid" borderColor="cardBg" />
-                            <Text fontWeight="700" fontSize="sm" mt={3}>{item.city}</Text>
-                            <Text color="textMuted" fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
-                          </Box>
-                        </Box>
-                      ))}
-                    </Grid>
-                  </Box>
+                        </Fragment>
+                      )
+                    })}
+                  </Flex>
                 </Box>
               </Box>
               <Box layerStyle="card" p={5}>
-                <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>awards.json</Text>
+                <FileLabel>awards.json</FileLabel>
                 <SimpleGrid columns={{ base: 1, sm: 2, lg: Math.min(Math.max(awards.length, 1), 4) }} spacing={4}>
                   {awards.slice(0, 4).map((award) => (
-                    <Box key={`${award.title}-${award.date}`}>
-                      <Text fontWeight="600" fontSize="sm">{award.title}</Text>
-                      <Text color="textMuted" fontSize="xs">{award.org} · {award.date}</Text>
-                    </Box>
+                    <Flex key={`${award.title}-${award.date}`} gap={3} align="flex-start">
+                      <Box
+                        w="8px"
+                        h="8px"
+                        transform="rotate(45deg)"
+                        borderRadius="1px"
+                        bg="accentGold"
+                        flexShrink={0}
+                        mt="6px"
+                      />
+                      <Box>
+                        <Text fontWeight="600" fontSize="sm">{award.title}</Text>
+                        <Text color="textMuted" fontSize="xs">{award.org} · {award.date}</Text>
+                      </Box>
+                    </Flex>
                   ))}
                 </SimpleGrid>
               </Box>

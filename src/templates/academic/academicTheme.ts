@@ -77,6 +77,9 @@ const academicTheme = extendTheme({
         default: alpha(palette.accent, 0.16),
         _dark: alpha(palette.accentSoft, 0.18),
       },
+      // Warm gold companion hue (education / awards markers), derived from
+      // the terminal chrome's minimize-dot color family.
+      accentGold: { default: '#a8842f', _dark: palette.terminal.dotMinimize },
     },
   },
   layerStyles: {
