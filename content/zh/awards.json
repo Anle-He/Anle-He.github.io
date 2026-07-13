@@ -1,19 +1,19 @@
 [
   {
-    "title": "奖学金或研究资助",
-    "org": "授予机构",
+    "title": "AWARD_1_TITLE",
+    "org": "AWARD_1_ORG",
     "date": "2025",
     "kind": "scholarship"
   },
   {
-    "title": "科研或竞赛奖项",
-    "org": "会议或机构",
+    "title": "AWARD_2_TITLE",
+    "org": "AWARD_2_ORG",
     "date": "2024",
     "kind": "competition"
   },
   {
-    "title": "学术荣誉",
-    "org": "你的学校",
+    "title": "AWARD_3_TITLE",
+    "org": "AWARD_3_ORG",
     "date": "2023",
     "kind": "honor"
   }

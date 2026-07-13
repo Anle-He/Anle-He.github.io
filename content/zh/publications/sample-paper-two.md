@@ -1,8 +1,8 @@
 ---
 id: sample-paper-two
-title: "第二篇代表性论文的标题"
-authors: [合作者甲, 你的名字, 合作者乙]
-venue: 会议或期刊
+title: "PAPER_2_TITLE"
+authors: [AUTHOR_1, AUTHOR_2, AUTHOR_3]
+venue: PAPER_2_VENUE
 venueType: conference
 year: 2025
 status: published
@@ -11,4 +11,4 @@ links:
   projectPage: "#"
 ---
 
-说明这项工作的独特之处。优先突出研究问题和贡献，而不是原样复制完整摘要。
+PAPER_2_SUMMARY

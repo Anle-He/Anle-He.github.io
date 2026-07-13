@@ -4,51 +4,26 @@
       {
         "course": "Master's Degree",
         "institution": "Beijing University of Technology",
-        "year": "2023-2026"
+        "year": "2023.09 - 2026.06"
       },
       {
         "course": "Bachelor's Degree",
         "institution": "Northeastern University at Qinhuangdao",
-        "year": "2019-2023"
+        "year": "2019.08 - 2023.06"
       }
     ]
   },
   "reviewing": [],
   "timeline": [
     {
-      "title": "Graduate Researcher",
-      "company": "Your Lab, Your University",
-      "companyUrl": "#",
-      "location": "City",
-      "start": "2024-09-01",
-      "category": "research",
-      "roleType": "research",
-      "isCurrent": true,
-      "summary": "A one-sentence description of your current research role.",
-      "highlights": []
-    },
-    {
-      "title": "Research Intern",
-      "company": "Research Institute or Company",
-      "companyUrl": "#",
-      "location": "City",
-      "start": "2023-06-01",
-      "end": "2023-09-01",
+      "title": "Algorithm Engineer",
+      "company": "Institute of Information Engineering, CAS",
+      "companyUrl": "http://www.iie.cas.cn/",
+      "location": "Haidian, Beijing",
+      "start": "2026-07",
       "category": "industry",
       "roleType": "mle",
-      "summary": "A one-sentence description of the project or team.",
-      "highlights": []
-    },
-    {
-      "title": "Undergraduate Research Assistant",
-      "company": "Previous Lab",
-      "companyUrl": "#",
-      "location": "City",
-      "start": "2022-03-01",
-      "end": "2024-06-01",
-      "category": "academic",
-      "roleType": "research",
-      "summary": "Briefly describe your earliest substantial research experience.",
+      "isCurrent": true,
       "highlights": []
     }
   ]

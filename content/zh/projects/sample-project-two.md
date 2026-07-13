@@ -1,13 +1,10 @@
 ---
-title: 数据集、基准或实验项目
+title: PROJECT_3_TITLE
 category: data
 date: 2025-08-01
-tags: [数据, 评测, 可复现性]
+tags: [PROJECT_3_TAG_1, PROJECT_3_TAG_2, PROJECT_3_TAG_3]
 link: "#"
 isOpenSource: true
 ---
 
-这个位置适合展示数据集、评测基准、复现工作或规模较大的实验项目。
-
-- 说明资源的规模与覆盖范围。
-- 链接到代码、数据、文档或论文。
+PROJECT_3_DESCRIPTION

@@ -1,9 +1,9 @@
 ---
-title: 关于研究工作流的笔记
+title: NOTE_2_TITLE
 category: tooling
 date: 2025-10-01
-tags: [工作流, 写作, 工具]
+tags: [NOTE_2_TAG_1, NOTE_2_TAG_2]
 link: "#"
 ---
 
-分享一种改善研究效率的实践，例如阅读方法、写作习惯、代码流程或工具使用经验。
+NOTE_2_DESCRIPTION

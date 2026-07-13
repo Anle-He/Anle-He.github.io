@@ -1,23 +1,23 @@
 {
   "currentResearch": [
     {
-      "lab": "Primary Research Direction",
+      "lab": "RESEARCH_CARD_1_TITLE",
       "emoji": "",
-      "advisor": "Advisor or collaborator",
-      "focus": "State the problem you care about and the outcome you want to enable.",
+      "advisor": "RESEARCH_CARD_1_SUBTITLE",
+      "focus": "RESEARCH_CARD_1_CONTENT",
       "link": "#"
     },
     {
-      "lab": "Methods and Systems",
+      "lab": "RESEARCH_CARD_2_TITLE",
       "emoji": "",
-      "advisor": "Lab or research group",
-      "focus": "Describe the methods, datasets, systems, or theories you use.",
+      "advisor": "RESEARCH_CARD_2_SUBTITLE",
+      "focus": "RESEARCH_CARD_2_CONTENT",
       "link": "#"
     },
     {
-      "lab": "Broader Impact",
+      "lab": "RESEARCH_CARD_3_TITLE",
       "emoji": "",
-      "focus": "Explain how the work connects to people, practice, or society.",
+      "focus": "RESEARCH_CARD_3_CONTENT",
       "link": "#"
     }
   ]

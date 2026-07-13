@@ -1,1 +1,1 @@
-I am a student or researcher working in **your field**. My current interests include a primary research direction, a complementary method, and a broader question that connects the work to real-world impact. Replace this paragraph with a concise biography of about 80 to 120 words.
+ABOUT_CONTENT

@@ -32,6 +32,8 @@ import type { Publication } from '@/types'
 
 const FOOTPRINT_COLUMNS = 3
 
+const formatYearMonth = (value: string) => value.slice(0, 7).replace('-', '.')
+
 const SectionHeading = ({ command, title, id }: { command: string; title: string; id: string }) => (
   <Flex id={id} align="center" gap={3} mb={5} scrollMarginTop="88px">
     <Text fontFamily="mono" fontSize="xs" color="accent" whiteSpace="nowrap">
@@ -255,72 +257,89 @@ const AcademicHome = () => {
         <VStack align="stretch" spacing={[12, 16]} mt={[12, 16]}>
           <Box>
             <SectionHeading id="experience" command="git log --career" title={t('experience')} />
-            <Grid templateColumns={{ base: '1fr', lg: '1.35fr 0.65fr' }} gap={4}>
+            <Stack spacing={4}>
               <Box layerStyle="card" p={[5, 7]}>
-                <VStack align="stretch" spacing={5}>
-                  {experienceTimeline.slice(0, 5).map((item) => (
-                    <Grid key={`${item.title}-${item.start}`} templateColumns="74px 1fr" gap={4}>
-                      <Text fontFamily="mono" fontSize="xs" color="accent">
-                        {item.start.slice(0, 4)}
-                      </Text>
-                      <Box borderLeft="1px solid" borderColor="borderSubtle" pl={4}>
-                        <Text fontWeight="700">{item.title}</Text>
-                        <Text color="textMuted" fontSize="sm">{item.company} · {item.location}</Text>
-                        {item.summary && <Text color="textMuted" fontSize="xs" mt={2}>{item.summary}</Text>}
-                      </Box>
-                    </Grid>
-                  ))}
-                </VStack>
-              </Box>
-              <Stack spacing={4}>
-                <Box layerStyle="card" p={5}>
-                  <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>education.json</Text>
-                  <VStack align="stretch" spacing={4}>
-                    {experience.education.courses.map((item) => (
-                      <Box key={`${item.course}-${item.institution}`}>
-                        <Text fontWeight="700" fontSize="sm">{item.course}</Text>
-                        <Text color="textMuted" fontSize="xs" mt={1}>{item.institution} · {item.year}</Text>
-                      </Box>
-                    ))}
-                  </VStack>
-                </Box>
-                <Box id="cities" layerStyle="card" p={5} scrollMarginTop="88px">
-                  <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>footprints.log</Text>
-                  <Grid templateColumns={`repeat(${FOOTPRINT_COLUMNS}, minmax(0, 1fr))`} gap={2} alignItems="start">
-                    {cities.map((item, index) => (
-                      <Box key={`${item.period}-${item.city}`} position="relative">
-                        {index < cities.length - 1 && index % FOOTPRINT_COLUMNS !== FOOTPRINT_COLUMNS - 1 && (
-                          <Box
-                            position="absolute"
-                            top="7px"
-                            left="18px"
-                            right="-10px"
-                            h="1px"
-                            bg="borderSubtle"
-                          />
-                        )}
-                        <Box position="relative" zIndex={1}>
-                          <Box w="15px" h="15px" borderRadius="full" bg="accent" border="3px solid" borderColor="cardBg" />
-                          <Text fontWeight="700" fontSize="sm" mt={3}>{item.city}</Text>
-                          <Text color="textMuted" fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
+                <Grid templateColumns={{ base: '1fr', md: '1.15fr 0.85fr' }} gap={[8, 10]}>
+                  <Box>
+                    <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>career.log</Text>
+                    <VStack align="stretch" spacing={5}>
+                      {experienceTimeline.slice(0, 5).map((item) => (
+                        <Grid key={`${item.title}-${item.start}`} templateColumns="84px 1fr" gap={4}>
+                          <Box fontFamily="mono" fontSize="xs" pt="2px">
+                            <Text color="accent">{formatYearMonth(item.start)}</Text>
+                            <Text color="textMuted" mt={1}>
+                              {item.end ? formatYearMonth(item.end) : t('present')}
+                            </Text>
+                          </Box>
+                          <Box borderLeft="1px solid" borderColor="borderSubtle" pl={4}>
+                            <Text fontWeight="700">{item.title}</Text>
+                            <Text color="textMuted" fontSize="sm">{item.company} · {item.location}</Text>
+                            {item.summary && <Text color="textMuted" fontSize="xs" mt={2}>{item.summary}</Text>}
+                          </Box>
+                        </Grid>
+                      ))}
+                    </VStack>
+                  </Box>
+                  <Box>
+                    <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>education.json</Text>
+                    <VStack align="stretch" spacing={5}>
+                      {experience.education.courses.map((item) => (
+                        <Grid key={`${item.course}-${item.institution}`} templateColumns="84px 1fr" gap={4}>
+                          <Box fontFamily="mono" fontSize="xs" pt="2px">
+                            {item.year.split(' - ').map((part, index) => (
+                              <Text key={part} color={index === 0 ? 'accent' : 'textMuted'} mt={index === 0 ? 0 : 1}>
+                                {part}
+                              </Text>
+                            ))}
+                          </Box>
+                          <Box borderLeft="1px solid" borderColor="borderSubtle" pl={4}>
+                            <Text fontWeight="700" fontSize="sm">{item.course}</Text>
+                            <Text color="textMuted" fontSize="xs" mt={1}>{item.institution}</Text>
+                          </Box>
+                        </Grid>
+                      ))}
+                    </VStack>
+                  </Box>
+                </Grid>
+                <Box borderTop="1px solid" borderColor="borderSubtle" mt={[6, 8]} pt={[5, 6]}>
+                  <Box id="cities" scrollMarginTop="88px">
+                    <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>footprints.log</Text>
+                    <Grid templateColumns={`repeat(${FOOTPRINT_COLUMNS}, minmax(0, 1fr))`} gap={2} alignItems="start">
+                      {cities.map((item, index) => (
+                        <Box key={`${item.period}-${item.city}`} position="relative">
+                          {index < cities.length - 1 && index % FOOTPRINT_COLUMNS !== FOOTPRINT_COLUMNS - 1 && (
+                            <Box
+                              position="absolute"
+                              top="7px"
+                              left="18px"
+                              right="-10px"
+                              h="1px"
+                              bg="borderSubtle"
+                            />
+                          )}
+                          <Box position="relative" zIndex={1}>
+                            <Box w="15px" h="15px" borderRadius="full" bg="accent" border="3px solid" borderColor="cardBg" />
+                            <Text fontWeight="700" fontSize="sm" mt={3}>{item.city}</Text>
+                            <Text color="textMuted" fontFamily="mono" fontSize="2xs" mt={1}>{item.period}</Text>
+                          </Box>
                         </Box>
-                      </Box>
-                    ))}
-                  </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
                 </Box>
-                <Box layerStyle="card" p={5}>
-                  <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>awards.json</Text>
-                  <VStack align="stretch" spacing={3}>
-                    {awards.slice(0, 4).map((award) => (
-                      <Box key={`${award.title}-${award.date}`}>
-                        <Text fontWeight="600" fontSize="sm">{award.title}</Text>
-                        <Text color="textMuted" fontSize="xs">{award.org} · {award.date}</Text>
-                      </Box>
-                    ))}
-                  </VStack>
-                </Box>
-              </Stack>
-            </Grid>
+              </Box>
+              <Box layerStyle="card" p={5}>
+                <Text fontFamily="mono" color="accent" fontSize="xs" mb={4}>awards.json</Text>
+                <SimpleGrid columns={{ base: 1, sm: 2, lg: Math.min(Math.max(awards.length, 1), 4) }} spacing={4}>
+                  {awards.slice(0, 4).map((award) => (
+                    <Box key={`${award.title}-${award.date}`}>
+                      <Text fontWeight="600" fontSize="sm">{award.title}</Text>
+                      <Text color="textMuted" fontSize="xs">{award.org} · {award.date}</Text>
+                    </Box>
+                  ))}
+                </SimpleGrid>
+              </Box>
+            </Stack>
           </Box>
 
           <Box>
@@ -534,7 +553,7 @@ const AcademicHome = () => {
           fontSize="xs"
         >
           <Flex direction={{ base: 'column', sm: 'row' }} justify="space-between" gap={3}>
-            <Text>© {new Date().getFullYear()} {siteOwner.name.display}. {t('built')}.</Text>
+            <Text>© {new Date().getFullYear()} {siteOwner.name.display} · {t('built')}</Text>
             <HStack spacing={4}>
               <Link href={`mailto:${siteOwner.contact.email}`} color="textMuted">{t('contact')}</Link>
               <Link href={safeHref(siteConfig.sourceUrl)} isExternal color="textMuted">Source</Link>

@@ -1,8 +1,8 @@
 ---
 id: sample-paper-two
-title: "Title of a Second Selected Publication"
-authors: [Coauthor A, Your Name, Coauthor B]
-venue: Conference or Journal
+title: "PAPER_2_TITLE"
+authors: [AUTHOR_1, AUTHOR_2, AUTHOR_3]
+venue: PAPER_2_VENUE
 venueType: conference
 year: 2025
 status: published
@@ -11,4 +11,4 @@ links:
   projectPage: "#"
 ---
 
-Describe what makes this work distinctive. Emphasize the research question and contribution rather than repeating the full abstract.
+PAPER_2_SUMMARY

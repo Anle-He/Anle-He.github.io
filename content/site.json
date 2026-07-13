@@ -11,15 +11,15 @@
     "display": "Sicheng He",
     "authorVariants": ["Sicheng He"]
   },
-  "title": "Wandering the planet of curiosity.",
-  "tagline": "I study meaningful problems at the intersection of your primary field, your methods, and the people or systems your work serves.",
+  "title": "Wandering the planet of curiosity",
+  "tagline": "TAGLINE_CONTENT",
   "sourceUrl": "https://github.com/Anle-He/Anle-He.github.io",
   "avatar": "starward-avatar.png",
   "skills": [
-    { "name": "Research Area", "icon": "FaBookOpen" },
-    { "name": "Method", "icon": "FaCode" },
-    { "name": "Topic", "icon": "FaLightbulb" },
-    { "name": "Open Source", "icon": "FaGithub" }
+    { "name": "SKILL_TAG_1", "icon": "FaBookOpen" },
+    { "name": "SKILL_TAG_2", "icon": "FaCode" },
+    { "name": "SKILL_TAG_3", "icon": "FaLightbulb" },
+    { "name": "SKILL_TAG_4", "icon": "FaGithub" }
   ],
   "contact": {
     "email": "sicheng_he@163.com"
@@ -28,7 +28,7 @@
     "github": "https://github.com/Anle-He",
     "linkedin": "",
     "medium": "",
-    "googleScholar": "https://scholar.google.com/citations?user=nntGcTkAAAAJ&hl=zh-CN",
+    "googleScholar": "https://scholar.google.com/citations?user=nntGcTkAAAAJ&hl=en",
     "twitter": "",
     "youtube": "",
     "bilibili": "",

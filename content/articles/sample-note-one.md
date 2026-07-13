@@ -1,9 +1,9 @@
 ---
-title: A Research Note or Tutorial
+title: NOTE_1_TITLE
 category: nlp
 date: 2026-02-01
-tags: [Research Notes, Tutorial]
+tags: [NOTE_1_TAG_1, NOTE_1_TAG_2]
 link: "#"
 ---
 
-Write a short description that tells readers what they will learn and why the note may be useful.
+NOTE_1_DESCRIPTION

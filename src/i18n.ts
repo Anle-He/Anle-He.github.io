@@ -23,6 +23,7 @@ i18n
           copyEmail: 'Copy email address',
           emailCopied: 'Email address copied',
           empty: 'Replace this sample in the content/ directory.',
+          present: 'Present',
           built: 'Adapted from Minimal Academic Homepage and TermHub',
           nav: {
             research: 'Research',
@@ -52,6 +53,7 @@ i18n
           copyEmail: '复制邮箱地址',
           emailCopied: '邮箱地址已复制',
           empty: '请在 content/ 目录中替换为你的真实内容。',
+          present: '至今',
           built: '基于 Minimal Academic Homepage 与 TermHub 改造',
           nav: {
             research: '研究',

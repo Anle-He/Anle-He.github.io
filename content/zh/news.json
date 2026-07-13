@@ -4,8 +4,8 @@
     "badge": "论文",
     "icon": "FaFileAlt",
     "iconColor": "blue.400",
-    "title": "在这里添加最新论文、预印本或录用消息。",
-    "description": "用一两句话说明这条动态。",
+    "title": "NEWS_1_TITLE",
+    "description": "NEWS_1_DESCRIPTION",
     "date": "2026年6月",
     "sortDate": "2026-06-01",
     "links": []
@@ -15,8 +15,8 @@
     "badge": "项目",
     "icon": "FaGithub",
     "iconColor": "green.400",
-    "title": "添加项目发布或开源里程碑。",
-    "description": "用一两句话说明这条动态。",
+    "title": "NEWS_2_TITLE",
+    "description": "NEWS_2_DESCRIPTION",
     "date": "2026年5月",
     "sortDate": "2026-05-01",
     "links": []
@@ -26,8 +26,8 @@
     "badge": "报告",
     "icon": "FaMicrophone",
     "iconColor": "purple.400",
-    "title": "添加报告、访问、奖项或其他近期活动。",
-    "description": "用一两句话说明这条动态。",
+    "title": "NEWS_3_TITLE",
+    "description": "NEWS_3_DESCRIPTION",
     "date": "2026年4月",
     "sortDate": "2026-04-01",
     "links": []

@@ -4,51 +4,26 @@
       {
         "course": "硕士",
         "institution": "北京工业大学",
-        "year": "2023-2026"
+        "year": "2023.09 - 2026.06"
       },
       {
         "course": "学士",
-        "institution": "东北大学（秦皇岛分校）",
-        "year": "2019-2023"
+        "institution": "东北大学秦皇岛分校",
+        "year": "2019.08 - 2023.06"
       }
     ]
   },
   "reviewing": [],
   "timeline": [
     {
-      "title": "研究生研究员",
-      "company": "你的实验室，你的学校",
-      "companyUrl": "#",
-      "location": "城市",
-      "start": "2024-09-01",
-      "category": "research",
-      "roleType": "research",
-      "isCurrent": true,
-      "summary": "用一句话概括你目前的研究角色。",
-      "highlights": []
-    },
-    {
-      "title": "研究实习生",
-      "company": "研究机构或公司",
-      "companyUrl": "#",
-      "location": "城市",
-      "start": "2023-06-01",
-      "end": "2023-09-01",
+      "title": "算法工程师",
+      "company": "中国科学院信息工程研究所",
+      "companyUrl": "http://www.iie.cas.cn/",
+      "location": "北京海淀",
+      "start": "2026-07",
       "category": "industry",
       "roleType": "mle",
-      "summary": "用一句话说明你参与的团队或项目。",
-      "highlights": []
-    },
-    {
-      "title": "本科生研究助理",
-      "company": "上一段实验室经历",
-      "companyUrl": "#",
-      "location": "城市",
-      "start": "2022-03-01",
-      "end": "2024-06-01",
-      "category": "academic",
-      "roleType": "research",
-      "summary": "简要说明你较早的一段重要研究经历。",
+      "isCurrent": true,
       "highlights": []
     }
   ]

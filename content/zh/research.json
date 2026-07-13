@@ -1,23 +1,23 @@
 {
   "currentResearch": [
     {
-      "lab": "核心研究方向",
+      "lab": "RESEARCH_CARD_1_TITLE",
       "emoji": "",
-      "advisor": "导师或合作者",
-      "focus": "说明你关注的问题，以及希望研究最终带来的结果。",
+      "advisor": "RESEARCH_CARD_1_SUBTITLE",
+      "focus": "RESEARCH_CARD_1_CONTENT",
       "link": "#"
     },
     {
-      "lab": "方法与系统",
+      "lab": "RESEARCH_CARD_2_TITLE",
       "emoji": "",
-      "advisor": "实验室或研究团队",
-      "focus": "介绍你使用的方法、数据、系统或理论。",
+      "advisor": "RESEARCH_CARD_2_SUBTITLE",
+      "focus": "RESEARCH_CARD_2_CONTENT",
       "link": "#"
     },
     {
-      "lab": "研究影响",
+      "lab": "RESEARCH_CARD_3_TITLE",
       "emoji": "",
-      "focus": "说明这些工作如何与人、实践或社会产生联系。",
+      "focus": "RESEARCH_CARD_3_CONTENT",
       "link": "#"
     }
   ]

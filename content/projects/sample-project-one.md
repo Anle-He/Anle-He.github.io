@@ -1,14 +1,11 @@
 ---
-title: Research Project or Open-Source Tool
+title: PROJECT_1_TITLE
 category: tooling
 date: 2026-03-01
-tags: [Python, Open Source, Research]
+tags: [PROJECT_1_TAG_1, PROJECT_1_TAG_2, PROJECT_1_TAG_3]
 link: "https://github.com/Anle-He"
 isOpenSource: true
 featured: true
 ---
 
-A concise explanation of what the project does, who it helps, and why it is worth exploring.
-
-- Add a measurable result or capability.
-- Mention your role and the current project status.
+PROJECT_1_DESCRIPTION

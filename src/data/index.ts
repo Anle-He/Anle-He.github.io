@@ -61,7 +61,11 @@ function markdownToText(markdown: string) {
     // strip heading/list/quote markers only at line starts, so hyphens
     // inside prose ('state-of-the-art', '2021-2023') survive
     .replace(/^[\s>]*(?:#+|[-*+]|\d+\.)\s+/gm, '')
-    .replace(/[`*_~]/g, '')
+    .replace(/[`*~]/g, '')
+    // strip underscores only at word edges (emphasis delimiters), so
+    // intra-word ones ('snake_case', 'ABOUT_CONTENT') survive
+    .replace(/(^|[^A-Za-z0-9])_+/g, '$1')
+    .replace(/_+(?=[^A-Za-z0-9]|$)/g, '')
     .replace(/\s+/g, ' ')
     .trim()
 }

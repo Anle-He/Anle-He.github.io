@@ -1,19 +1,19 @@
 [
   {
-    "title": "Scholarship or Fellowship",
-    "org": "Awarding Organization",
+    "title": "AWARD_1_TITLE",
+    "org": "AWARD_1_ORG",
     "date": "2025",
     "kind": "scholarship"
   },
   {
-    "title": "Research or Competition Award",
-    "org": "Conference or Institution",
+    "title": "AWARD_2_TITLE",
+    "org": "AWARD_2_ORG",
     "date": "2024",
     "kind": "competition"
   },
   {
-    "title": "Academic Honor",
-    "org": "Your University",
+    "title": "AWARD_3_TITLE",
+    "org": "AWARD_3_ORG",
     "date": "2023",
     "kind": "honor"
   }

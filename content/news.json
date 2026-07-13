@@ -4,8 +4,8 @@
     "badge": "Publication",
     "icon": "FaFileAlt",
     "iconColor": "blue.400",
-    "title": "Add your newest paper, preprint, or acceptance here.",
-    "description": "A short description of the update.",
+    "title": "NEWS_1_TITLE",
+    "description": "NEWS_1_DESCRIPTION",
     "date": "Jun 2026",
     "sortDate": "2026-06-01",
     "links": []
@@ -15,8 +15,8 @@
     "badge": "Project",
     "icon": "FaGithub",
     "iconColor": "green.400",
-    "title": "Add a project release or open-source milestone.",
-    "description": "A short description of the update.",
+    "title": "NEWS_2_TITLE",
+    "description": "NEWS_2_DESCRIPTION",
     "date": "May 2026",
     "sortDate": "2026-05-01",
     "links": []
@@ -26,8 +26,8 @@
     "badge": "Talk",
     "icon": "FaMicrophone",
     "iconColor": "purple.400",
-    "title": "Add a talk, visit, award, or other recent activity.",
-    "description": "A short description of the update.",
+    "title": "NEWS_3_TITLE",
+    "description": "NEWS_3_DESCRIPTION",
     "date": "Apr 2026",
     "sortDate": "2026-04-01",
     "links": []

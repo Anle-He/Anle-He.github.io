@@ -1,13 +1,10 @@
 ---
-title: Dataset, Benchmark, or Experiment
+title: PROJECT_3_TITLE
 category: data
 date: 2025-08-01
-tags: [Data, Evaluation, Reproducibility]
+tags: [PROJECT_3_TAG_1, PROJECT_3_TAG_2, PROJECT_3_TAG_3]
 link: "#"
 isOpenSource: true
 ---
 
-Use this card for a dataset, benchmark, reproducibility effort, or substantial experimental project.
-
-- State the scope of the resource.
-- Link to code, data, documentation, or a paper.
+PROJECT_3_DESCRIPTION

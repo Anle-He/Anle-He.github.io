@@ -1,9 +1,9 @@
 ---
-title: Notes on Research Workflow
+title: NOTE_2_TITLE
 category: tooling
 date: 2025-10-01
-tags: [Workflow, Writing, Tools]
+tags: [NOTE_2_TAG_1, NOTE_2_TAG_2]
 link: "#"
 ---
 
-Share a practical workflow, reading method, writing habit, or tool that has improved how you work.
+NOTE_2_DESCRIPTION
