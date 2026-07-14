@@ -219,11 +219,11 @@ const AcademicHome = () => {
             <Text mt={3} maxW="720px" color="textMuted" fontSize={['sm', 'md']} lineHeight="1.8">
               {siteConfig.tagline}
             </Text>
-            <Stack mt={6} spacing={2} align="flex-start">
-              <Wrap spacing={2} align="center">
-              {contactEmails.map((item) => (
-                <WrapItem key={item.address}>
+            <Flex mt={6} columnGap={4} rowGap={2} align="flex-start" wrap="wrap">
+              <VStack spacing={2} align="stretch">
+                {contactEmails.map((item) => (
                   <Flex
+                    key={item.address}
                     align="center"
                     gap={2}
                     pl={3}
@@ -258,28 +258,28 @@ const AcademicHome = () => {
                       borderRadius="full"
                       color={copiedEmail === item.address ? 'accent' : 'textMuted'}
                       fontSize="10px"
+                      ml="auto"
                     />
                   </Flex>
-                </WrapItem>
-              ))}
-              </Wrap>
-              <Wrap spacing={2} align="center">
-              {[
-                siteOwner.social.github && ['GitHub', siteOwner.social.github],
-                siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
-                siteOwner.social.blog && ['Blog', siteOwner.social.blog],
-              ].filter(Boolean).map((item) => {
-                const [label, rawHref] = item as string[]
-                const href = safeHref(rawHref)
-                if (!href) return null
-                return (
-                  <WrapItem key={label}>
+                ))}
+              </VStack>
+              <VStack spacing={2} align="stretch">
+                {[
+                  siteOwner.social.github && ['GitHub', siteOwner.social.github],
+                  siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
+                  siteOwner.social.blog && ['Blog', siteOwner.social.blog],
+                ].filter(Boolean).map((item) => {
+                  const [label, rawHref] = item as string[]
+                  const href = safeHref(rawHref)
+                  if (!href) return null
+                  return (
                     <Link
+                      key={label}
                       href={href}
                       isExternal
                       display="inline-flex"
                       alignItems="center"
-                      gap={1.5}
+                      gap={3}
                       px={3}
                       py={1.5}
                       border="1px solid"
@@ -291,13 +291,12 @@ const AcademicHome = () => {
                       transition="border-color 0.2s, color 0.2s"
                       _hover={{ borderColor: 'accentHoverBorder', color: 'accent', textDecoration: 'none' }}
                     >
-                      {label} <Text as="span" color="accent">↗</Text>
+                      {label} <Text as="span" color="accent" ml="auto">↗</Text>
                     </Link>
-                  </WrapItem>
-                )
-              })}
-              </Wrap>
-            </Stack>
+                  )
+                })}
+              </VStack>
+            </Flex>
           </GridItem>
           <GridItem justifySelf={{ base: 'center', md: 'end' }}>
             <Box
