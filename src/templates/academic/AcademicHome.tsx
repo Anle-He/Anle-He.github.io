@@ -219,7 +219,8 @@ const AcademicHome = () => {
             <Text mt={3} maxW="720px" color="textMuted" fontSize={['sm', 'md']} lineHeight="1.8">
               {siteConfig.tagline}
             </Text>
-            <Wrap mt={6} spacing={2} align="center">
+            <Stack mt={6} spacing={2} align="flex-start">
+              <Wrap spacing={2} align="center">
               {contactEmails.map((item) => (
                 <WrapItem key={item.address}>
                   <Flex
@@ -261,6 +262,8 @@ const AcademicHome = () => {
                   </Flex>
                 </WrapItem>
               ))}
+              </Wrap>
+              <Wrap spacing={2} align="center">
               {[
                 siteOwner.social.github && ['GitHub', siteOwner.social.github],
                 siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
@@ -293,7 +296,8 @@ const AcademicHome = () => {
                   </WrapItem>
                 )
               })}
-            </Wrap>
+              </Wrap>
+            </Stack>
           </GridItem>
           <GridItem justifySelf={{ base: 'center', md: 'end' }}>
             <Box
