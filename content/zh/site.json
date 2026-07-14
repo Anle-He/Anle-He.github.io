@@ -22,7 +22,8 @@
     { "name": "SKILL_TAG_4", "icon": "FaGithub" }
   ],
   "contact": {
-    "email": "sicheng_he@163.com"
+    "email": "sicheng_he@163.com",
+    "workEmail": "hesicheng@iie.ac.cn"
   },
   "social": {
     "github": "https://github.com/Anle-He",

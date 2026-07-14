@@ -21,7 +21,7 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react'
-import { CheckIcon, CopyIcon } from '@chakra-ui/icons'
+import { CheckIcon, CopyIcon, EmailIcon } from '@chakra-ui/icons'
 import { Fragment, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocalizedData } from '@/hooks/useLocalizedData'
@@ -57,7 +57,7 @@ const SectionHeading = ({ command, title, id }: { command: string; title: string
 
 const AcademicHome = () => {
   const { t } = useTranslation()
-  const [emailCopied, setEmailCopied] = useState(false)
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null)
   const {
     about,
     awards,
@@ -116,15 +116,15 @@ const AcademicHome = () => {
       .map(([label, href]) => [label, safeHref(href)] as const)
       .filter((entry): entry is readonly [string, string] => Boolean(entry[1]))
 
-  const copyEmail = async () => {
+  const copyEmail = async (address: string) => {
     let copied = false
 
     try {
-      await navigator.clipboard.writeText(siteOwner.contact.email)
+      await navigator.clipboard.writeText(address)
       copied = true
     } catch {
       const input = document.createElement('textarea')
-      input.value = siteOwner.contact.email
+      input.value = address
       input.style.position = 'fixed'
       input.style.opacity = '0'
       document.body.appendChild(input)
@@ -133,9 +133,14 @@ const AcademicHome = () => {
       input.remove()
     }
 
-    setEmailCopied(copied)
-    if (copied) window.setTimeout(() => setEmailCopied(false), 1800)
+    setCopiedEmail(copied ? address : null)
+    if (copied) window.setTimeout(() => setCopiedEmail(null), 1800)
   }
+
+  const contactEmails = [
+    { address: siteOwner.contact.email, label: t('emailPersonal'), isWork: false },
+    { address: siteOwner.contact.workEmail, label: t('emailWork'), isWork: true },
+  ].filter((item) => item.address)
 
   return (
     <Box
@@ -214,60 +219,81 @@ const AcademicHome = () => {
             <Text mt={3} maxW="720px" color="textMuted" fontSize={['sm', 'md']} lineHeight="1.8">
               {siteConfig.tagline}
             </Text>
-            <Flex mt={6} align="center" gap={3} wrap="wrap">
-              {siteOwner.contact.email && (
-                <HStack spacing={1}>
-                  <Link
-                    href={`mailto:${siteOwner.contact.email}`}
-                    color="textMuted"
-                    fontFamily="mono"
-                    fontSize="sm"
-                    _hover={{ color: 'accent', textDecoration: 'none' }}
+            <Wrap mt={6} spacing={2} align="center">
+              {contactEmails.map((item) => (
+                <WrapItem key={item.address}>
+                  <Flex
+                    align="center"
+                    gap={2}
+                    pl={3}
+                    pr={1}
+                    py={1}
+                    border="1px solid"
+                    borderColor="borderSubtle"
+                    borderRadius="full"
+                    transition="border-color 0.2s"
+                    _hover={{ borderColor: 'accentHoverBorder' }}
                   >
-                    {siteOwner.contact.email}
-                  </Link>
-                  <IconButton
-                    aria-label={emailCopied ? t('emailCopied') : t('copyEmail')}
-                    title={emailCopied ? t('emailCopied') : t('copyEmail')}
-                    icon={emailCopied ? <CheckIcon /> : <CopyIcon />}
-                    onClick={copyEmail}
-                    size="xs"
-                    variant="ghost"
-                    color={emailCopied ? 'accent' : 'textMuted'}
-                    fontSize="10px"
-                  />
-                </HStack>
-              )}
-              <Wrap spacing={2}>
-                {[
-                  siteOwner.social.github && ['GitHub', siteOwner.social.github],
-                  siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
-                  siteOwner.social.blog && ['Blog', siteOwner.social.blog],
-                ].filter(Boolean).map((item) => {
-                  const [label, rawHref] = item as string[]
-                  const href = safeHref(rawHref)
-                  if (!href) return null
-                  return (
-                    <WrapItem key={label}>
-                      <Link
-                        href={href}
-                        isExternal
-                        px={3}
-                        py={1.5}
-                        border="1px solid"
-                        borderColor="borderSubtle"
-                        borderRadius="full"
-                        color="textPrimary"
-                        fontSize="sm"
-                        _hover={{ borderColor: 'accent', color: 'accent', textDecoration: 'none' }}
-                      >
-                        {label} <Text as="span" color="accent">↗</Text>
-                      </Link>
-                    </WrapItem>
-                  )
-                })}
-              </Wrap>
-            </Flex>
+                    <EmailIcon boxSize="13px" color={item.isWork ? 'accentGold' : 'accent'} />
+                    <Text fontFamily="mono" fontSize="xs" color="textMuted" whiteSpace="nowrap">
+                      {item.label}
+                    </Text>
+                    <Link
+                      href={`mailto:${item.address}`}
+                      fontFamily="mono"
+                      fontSize="sm"
+                      color="textPrimary"
+                      _hover={{ color: 'accent', textDecoration: 'none' }}
+                    >
+                      {item.address}
+                    </Link>
+                    <IconButton
+                      aria-label={copiedEmail === item.address ? t('emailCopied') : t('copyEmail')}
+                      title={copiedEmail === item.address ? t('emailCopied') : t('copyEmail')}
+                      icon={copiedEmail === item.address ? <CheckIcon /> : <CopyIcon />}
+                      onClick={() => copyEmail(item.address)}
+                      size="xs"
+                      variant="ghost"
+                      borderRadius="full"
+                      color={copiedEmail === item.address ? 'accent' : 'textMuted'}
+                      fontSize="10px"
+                    />
+                  </Flex>
+                </WrapItem>
+              ))}
+              {[
+                siteOwner.social.github && ['GitHub', siteOwner.social.github],
+                siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
+                siteOwner.social.blog && ['Blog', siteOwner.social.blog],
+              ].filter(Boolean).map((item) => {
+                const [label, rawHref] = item as string[]
+                const href = safeHref(rawHref)
+                if (!href) return null
+                return (
+                  <WrapItem key={label}>
+                    <Link
+                      href={href}
+                      isExternal
+                      display="inline-flex"
+                      alignItems="center"
+                      gap={1.5}
+                      px={3}
+                      py={1.5}
+                      border="1px solid"
+                      borderColor="borderSubtle"
+                      borderRadius="full"
+                      color="textPrimary"
+                      fontFamily="mono"
+                      fontSize="sm"
+                      transition="border-color 0.2s, color 0.2s"
+                      _hover={{ borderColor: 'accentHoverBorder', color: 'accent', textDecoration: 'none' }}
+                    >
+                      {label} <Text as="span" color="accent">↗</Text>
+                    </Link>
+                  </WrapItem>
+                )
+              })}
+            </Wrap>
           </GridItem>
           <GridItem justifySelf={{ base: 'center', md: 'end' }}>
             <Box

@@ -35,7 +35,10 @@ export function getLocalizedSiteOwner(lang: string) {
   const cfg = getLocalizedSiteConfig(lang)
   return {
     name: cfg.name ?? { display: '' },
-    contact: { email: cfg.contact?.email ?? '' },
+    contact: {
+      email: cfg.contact?.email ?? '',
+      workEmail: cfg.contact?.workEmail ?? '',
+    },
     social: cfg.social ?? {},
     skills: cfg.skills ?? [],
   }
