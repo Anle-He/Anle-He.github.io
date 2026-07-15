@@ -1,89 +1,129 @@
-# Anle He | Personal Academic Homepage
+# Anle He · Personal Academic Homepage
 
-这是一个部署在 GitHub Pages 上的中英双语个人学术主页：
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-2ea44f?logo=github)](https://anle-he.github.io/)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 
-[https://anle-he.github.io/](https://anle-he.github.io/)
+一个部署于 GitHub Pages 的中英双语个人学术主页，采用单页布局展示个人简介、教育与经历、研究方向、论文、项目、奖项及文章笔记。
 
-页面采用单页结构，以个人简介、教育与经历、研究方向、论文、项目和文章笔记为主，
-并保留少量终端风格细节。项目基于 TermHub 改造，并参考
-minimal-academic-homepage 的学术主页信息组织方式。
+**在线访问：** [https://anle-he.github.io/](https://anle-he.github.io/)
 
-## 本地维护
+## 功能特点
 
-需要 Node.js 22 或更高版本。
+- 中英双语内容与语言切换
+- 响应式单页布局，支持浅色与深色模式
+- 通过 JSON 和 Markdown 维护内容，无需修改页面组件
+- 集中管理主题配色与中英文字体
+- 使用 GitHub Actions 自动构建并部署至 GitHub Pages
+- 发布前自动执行内容校验、代码检查与生产构建
+
+## 技术栈
+
+- React 18 + TypeScript
+- Vite 7
+- Chakra UI + Emotion
+- i18next
+- Markdown 内容与自定义 Vite 插件
+
+## 快速开始
+
+### 环境要求
+
+- Node.js 22 或更高版本
+- npm（随 Node.js 安装）
+
+### 本地运行
 
 ```bash
-npm install
+git clone https://github.com/Anle-He/Anle-He.github.io.git
+cd Anle-He.github.io
+npm ci
 npm run validate
 npm run dev
 ```
 
-开发地址通常为 `http://127.0.0.1:5173/`。
+开发服务器默认运行于 `http://localhost:5173/`。
 
-提交或发布前建议运行：
+### 提交前检查
 
 ```bash
+npm run validate
 npm run lint
 npm run audit
 npm run build
 ```
 
-## 内容位置
+## 可用脚本
+
+| 命令 | 说明 |
+| --- | --- |
+| `npm run dev` | 启动本地开发服务器 |
+| `npm run build` | 执行 TypeScript 检查并生成生产构建 |
+| `npm run preview` | 本地预览生产构建 |
+| `npm run validate` | 校验站点内容与配置 |
+| `npm run lint` | 检查 TypeScript、React、插件及 Vite 配置 |
+| `npm run audit` | 检查生产依赖中的高危及以上漏洞 |
+
+## 项目结构
+
+```text
+.
+├── content/                 # 英文内容、图片与各类条目
+│   ├── zh/                  # 中文内容
+│   ├── articles/            # 文章笔记
+│   ├── projects/            # 项目
+│   └── publications/        # 论文
+├── plugins/                 # Markdown 与内容图片插件
+├── public/                  # 原样复制的静态资源
+├── scripts/                 # 内容校验脚本
+├── src/                     # 页面组件、模板、样式与国际化配置
+├── .github/workflows/       # GitHub Pages 部署工作流
+└── vite.config.ts           # Vite 配置
+```
+
+## 内容维护
+
+日常更新通常只需修改 `content/` 中的 JSON 或 Markdown 文件。英文内容位于 `content/`，中文对应内容位于 `content/zh/`。
 
 | 内容 | 英文 | 中文 |
 | --- | --- | --- |
-| 姓名、简介、邮箱、链接 | `content/site.json` | `content/zh/site.json` |
+| 姓名、简介、联系方式与链接 | `content/site.json` | `content/zh/site.json` |
 | 个人介绍 | `content/about.md` | `content/zh/about.md` |
 | 研究方向 | `content/research.json` | `content/zh/research.json` |
 | 教育与经历 | `content/experience.json` | `content/zh/experience.json` |
-| 奖项、动态 | `content/awards.json`、`content/news.json` | 对应的 `content/zh/` 文件 |
-| 论文、项目、文章 | `content/publications/` 等目录 | 对应的 `content/zh/` 目录 |
+| 奖项与动态 | `content/awards.json`、`content/news.json` | `content/zh/` 下的对应文件 |
+| 论文、项目与文章 | `content/publications/`、`content/projects/`、`content/articles/` | `content/zh/` 下的对应目录 |
 
-头像和页面图片放在 `content/images/`。头像在页面上以圆形展示，
-建议使用正方形图片，透明底 PNG 效果最佳（深色模式下不会露出底色）。
-多数日常修改只需要更新 `content/` 目录下的 JSON 或 Markdown 文件。
+图片统一放在 `content/images/`。头像会以圆形显示，建议使用正方形透明背景 PNG，以兼顾浅色和深色模式。
 
-## 主题与配色
+## 主题配置
 
-全站颜色集中定义在 `src/templates/academic/academicTheme.ts` 的
-`palette` 中，包括强调色（`accent` / 深色模式用 `accentSoft`）与
-浅色、深色两套底色、边框和文字颜色。想更换主题色时只需修改
-`palette`，无需在组件中逐处查找。唯一的例外是 `src/index.css`
-中的文字选中高亮色，需与 `palette.accent` 手动保持一致
-（文件内有注释标注）。中英文字体栈也在同一文件中配置。
+全站颜色与字体集中定义在 `src/templates/academic/academicTheme.ts`：
 
-## 部署到 GitHub Pages
+- `palette.accent`：浅色模式强调色
+- `palette.accentSoft`：深色模式强调色
+- 其余字段：页面背景、卡片、边框及文字颜色
 
-本仓库通过 GitHub Actions 自动部署到 GitHub Pages。日常更新流程：
+修改强调色时，还需同步调整 `src/index.css` 中带注释标记的文字选中高亮色。
 
-1. 在本地修改内容或代码。
-2. 运行 `npm run validate`、`npm run lint` 和 `npm run build`。
-3. 提交并推送到 `main`。
-4. 打开仓库 `Actions`，等待 `Build and Deploy to GitHub Pages` 成功。
-5. 如果线上页面短时间内仍显示旧内容，通常是 GitHub Pages 缓存，强制刷新或稍等几分钟即可。
+## 部署
 
-工作流会自动适配根域仓库和普通项目仓库的 URL 前缀。
-如果姓名或邮箱仍是占位值，工作流会主动停止，避免误发布模板信息。
+推送至 `main` 后，GitHub Actions 工作流 `Build and Deploy to GitHub Pages` 会自动：
 
-## 参考项目
+1. 安装锁定版本的依赖；
+2. 校验内容并阻止占位信息发布；
+3. 执行代码检查与生产构建；
+4. 将 `dist/` 部署至 GitHub Pages。
 
-本项目的实现与设计参考了以下开源项目，感谢原作者的工作：
+工作流会自动适配用户主页仓库与普通项目仓库的 URL 前缀。部署状态可在仓库的 **Actions** 页面查看。
 
-- [H-Freax/TermHub](https://github.com/H-Freax/TermHub)：代码基础、内容组织、
-  中英双语支持与终端风格交互；原项目采用 `GPL-3.0-only`。
-- [Xin-Jiaqi/minimal-academic-homepage](https://github.com/Xin-Jiaqi/minimal-academic-homepage)：
-  单页学术主页的信息结构与简洁视觉方向。
+## 来源与许可
 
-本仓库已经对页面结构、组件、内容配置和 GitHub Pages 部署流程进行了修改。
-完整的来源、许可与修改说明见 [NOTICE.md](NOTICE.md)。
+本项目基于并参考以下开源项目：
 
-## 安全与许可
+- [H-Freax/TermHub](https://github.com/H-Freax/TermHub)：代码基础、内容组织、中英双语支持与终端风格交互
+- [Xin-Jiaqi/minimal-academic-homepage](https://github.com/Xin-Jiaqi/minimal-academic-homepage)：学术主页的信息结构与简洁视觉设计
 
-- 不要向仓库提交密码、令牌、私钥、未公开数据或不希望公开的个人信息。
-- 依赖由 Dependabot 每周检查；本地可运行 `npm run audit`。
-- 项目整体采用 `GPL-3.0-only`，发布修改版时应保留许可证、版权声明、
-  修改说明，并公开对应源代码。
-- 上游来源和修改说明见 [NOTICE.md](NOTICE.md)。
+项目采用 [GNU General Public License v3.0](LICENSE)。完整的上游来源、版权与修改说明见 [NOTICE.md](NOTICE.md)。参与贡献前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，安全问题请参考 [SECURITY.md](SECURITY.md)。
 
-本项目不提供法律保证。公开发布前，应确认头像、论文插图、机构 Logo
-和文字内容均具有公开使用权。
+> [!IMPORTANT]
+> 请勿提交密码、令牌、私钥、未公开数据或其他不希望公开的信息。发布头像、论文插图、机构 Logo 和文字内容前，请确认拥有相应的公开使用权。
