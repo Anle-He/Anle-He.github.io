@@ -1,35 +1,20 @@
 [
   {
     "type": "publication",
-    "badge": "论文",
-    "icon": "FaFileAlt",
-    "iconColor": "blue.400",
     "title": "NEWS_1_TITLE",
-    "description": "NEWS_1_DESCRIPTION",
     "date": "2026年6月",
-    "sortDate": "2026-06-01",
-    "links": []
+    "sortDate": "2026-06-01"
   },
   {
     "type": "project",
-    "badge": "项目",
-    "icon": "FaGithub",
-    "iconColor": "green.400",
     "title": "NEWS_2_TITLE",
-    "description": "NEWS_2_DESCRIPTION",
     "date": "2026年5月",
-    "sortDate": "2026-05-01",
-    "links": []
+    "sortDate": "2026-05-01"
   },
   {
     "type": "talk",
-    "badge": "报告",
-    "icon": "FaMicrophone",
-    "iconColor": "purple.400",
     "title": "NEWS_3_TITLE",
-    "description": "NEWS_3_DESCRIPTION",
     "date": "2026年4月",
-    "sortDate": "2026-04-01",
-    "links": []
+    "sortDate": "2026-04-01"
   }
 ]

@@ -2,19 +2,16 @@
   {
     "title": "AWARD_1_TITLE",
     "org": "AWARD_1_ORG",
-    "date": "2025",
-    "kind": "scholarship"
+    "date": "2025"
   },
   {
     "title": "AWARD_2_TITLE",
     "org": "AWARD_2_ORG",
-    "date": "2024",
-    "kind": "competition"
+    "date": "2024"
   },
   {
     "title": "AWARD_3_TITLE",
     "org": "AWARD_3_ORG",
-    "date": "2023",
-    "kind": "honor"
+    "date": "2023"
   }
 ]

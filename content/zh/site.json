@@ -1,25 +1,17 @@
 {
   "_comment": "请将本文件中的示例信息替换为你的个人资料。",
-  "template": "academic",
-  "components": {},
-  "sections": [],
   "name": {
-    "full": "何思成",
-    "first": "思成",
-    "nickname": "",
-    "last": "何",
-    "display": "何思成",
-    "authorVariants": ["何思成", "Sicheng He"]
+    "display": "何思成"
   },
   "title": "漫步于好奇星球",
   "tagline": "TAGLINE_CONTENT",
   "sourceUrl": "https://github.com/Anle-He/Anle-He.github.io",
   "avatar": "starward-avatar.png",
   "skills": [
-    { "name": "SKILL_TAG_1", "icon": "FaBookOpen" },
-    { "name": "SKILL_TAG_2", "icon": "FaCode" },
-    { "name": "SKILL_TAG_3", "icon": "FaLightbulb" },
-    { "name": "SKILL_TAG_4", "icon": "FaGithub" }
+    { "name": "SKILL_TAG_1" },
+    { "name": "SKILL_TAG_2" },
+    { "name": "SKILL_TAG_3" },
+    { "name": "SKILL_TAG_4" }
   ],
   "contact": {
     "email": "sicheng_he@163.com",
@@ -27,18 +19,9 @@
   },
   "social": {
     "github": "https://github.com/Anle-He",
-    "linkedin": "",
-    "medium": "",
     "googleScholar": "https://scholar.google.com/citations?user=nntGcTkAAAAJ&hl=zh-CN",
-    "twitter": "",
-    "youtube": "",
-    "bilibili": "",
-    "zhihu": "",
-    "csdn": "",
     "blog": ""
   },
-  "pets": [],
-  "heroSocialIcons": [],
   "selectedPublicationIds": [
     "sample-paper-one",
     "sample-paper-two",

@@ -15,18 +15,13 @@
       }
     ]
   },
-  "reviewing": [],
   "timeline": [
     {
       "title": "Algorithm Engineer",
       "company": "Institute of Information Engineering, CAS",
-      "companyUrl": "http://www.iie.cas.cn/",
       "location": "Haidian, Beijing",
       "start": "2026-07",
-      "category": "industry",
-      "roleType": "mle",
-      "isCurrent": true,
-      "highlights": []
+      "isCurrent": true
     }
   ]
 }

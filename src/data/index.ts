@@ -120,19 +120,14 @@ function mdToAbout(raw: Record<string, unknown>): About {
 }
 
 function toExperience(raw: unknown): Experience {
-  const r = asRecord(raw)
-  const education = asRecord(r.education)
-  return {
-    education: { courses: asArray(education.courses) },
-    reviewing: asArray(r.reviewing),
-  } as Experience
+  const education = asRecord(asRecord(raw).education)
+  return { education: { courses: asArray(education.courses) } } as Experience
 }
 
 function toTimeline(raw: unknown): ExperienceEntry[] {
   return asArray<Record<string, unknown>>(raw).map(entry => ({
     ...entry,
     start: typeof entry.start === 'string' ? entry.start : String(entry.start ?? ''),
-    highlights: asArray<string>(entry.highlights),
   })) as unknown as ExperienceEntry[]
 }
 
@@ -142,19 +137,18 @@ function toResearch(raw: unknown): Research {
 
 // ── JSON imports (both languages) ──
 
+// Site config lives in site.config.ts, which layers its own guards on top.
 import experienceJsonEn from '@content/experience.json'
 import newsJsonEn from '@content/news.json'
 import awardsJsonEn from '@content/awards.json'
 import citiesJsonEn from '@content/cities.json'
 import researchJsonEn from '@content/research.json'
-import siteJsonEn from '@content/site.json'
 
 import experienceJsonZh from '@content/zh/experience.json'
 import newsJsonZh from '@content/zh/news.json'
 import awardsJsonZh from '@content/zh/awards.json'
 import citiesJsonZh from '@content/zh/cities.json'
 import researchJsonZh from '@content/zh/research.json'
-import siteJsonZh from '@content/zh/site.json'
 
 // ── Build language datasets (shared builder; zh built lazily on first use) ──
 
@@ -173,7 +167,7 @@ interface JsonBundle {
   research: unknown
 }
 
-function buildDataset<TSite>(mds: MdBundle, json: JsonBundle, site: TSite) {
+function buildDataset(mds: MdBundle, json: JsonBundle) {
   return {
     projects: collectMd(mds.projects).map(mdToProject),
     articles: collectMd(mds.articles).map(mdToProject),
@@ -185,14 +179,12 @@ function buildDataset<TSite>(mds: MdBundle, json: JsonBundle, site: TSite) {
     news: asArray<NewsItem>(json.news),
     awards: asArray<Award>(json.awards),
     cities: asArray<CityResidence>(json.cities),
-    siteConfig: site,
   }
 }
 
 const enData = buildDataset(
   { projects: projectMdsEn, articles: articleMdsEn, publications: publicationMdsEn, about: aboutMdEn },
   { experience: experienceJsonEn, news: newsJsonEn, awards: awardsJsonEn, cities: citiesJsonEn, research: researchJsonEn },
-  siteJsonEn,
 )
 
 type Dataset = typeof enData
@@ -203,7 +195,6 @@ function getZhData(): Dataset {
   zhDataCache ??= buildDataset(
     { projects: projectMdsZh, articles: articleMdsZh, publications: publicationMdsZh, about: aboutMdZh },
     { experience: experienceJsonZh, news: newsJsonZh, awards: awardsJsonZh, cities: citiesJsonZh, research: researchJsonZh },
-    siteJsonZh as typeof siteJsonEn,
   )
   return zhDataCache
 }

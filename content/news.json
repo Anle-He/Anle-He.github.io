@@ -1,35 +1,20 @@
 [
   {
     "type": "publication",
-    "badge": "Publication",
-    "icon": "FaFileAlt",
-    "iconColor": "blue.400",
     "title": "NEWS_1_TITLE",
-    "description": "NEWS_1_DESCRIPTION",
     "date": "Jun 2026",
-    "sortDate": "2026-06-01",
-    "links": []
+    "sortDate": "2026-06-01"
   },
   {
     "type": "project",
-    "badge": "Project",
-    "icon": "FaGithub",
-    "iconColor": "green.400",
     "title": "NEWS_2_TITLE",
-    "description": "NEWS_2_DESCRIPTION",
     "date": "May 2026",
-    "sortDate": "2026-05-01",
-    "links": []
+    "sortDate": "2026-05-01"
   },
   {
     "type": "talk",
-    "badge": "Talk",
-    "icon": "FaMicrophone",
-    "iconColor": "purple.400",
     "title": "NEWS_3_TITLE",
-    "description": "NEWS_3_DESCRIPTION",
     "date": "Apr 2026",
-    "sortDate": "2026-04-01",
-    "links": []
+    "sortDate": "2026-04-01"
   }
 ]

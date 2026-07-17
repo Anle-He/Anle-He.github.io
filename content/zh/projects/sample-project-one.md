@@ -4,8 +4,6 @@ category: tooling
 date: 2026-03-01
 tags: [PROJECT_1_TAG_1, PROJECT_1_TAG_2, PROJECT_1_TAG_3]
 link: "https://github.com/Anle-He"
-isOpenSource: true
-featured: true
 ---
 
 PROJECT_1_DESCRIPTION

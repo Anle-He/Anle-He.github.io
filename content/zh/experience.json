@@ -15,18 +15,13 @@
       }
     ]
   },
-  "reviewing": [],
   "timeline": [
     {
       "title": "算法工程师",
       "company": "中国科学院信息工程研究所",
-      "companyUrl": "http://www.iie.cas.cn/",
       "location": "北京海淀",
       "start": "2026-07",
-      "category": "industry",
-      "roleType": "mle",
-      "isCurrent": true,
-      "highlights": []
+      "isCurrent": true
     }
   ]
 }

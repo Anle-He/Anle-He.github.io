@@ -2,21 +2,18 @@
   "currentResearch": [
     {
       "lab": "RESEARCH_CARD_1_TITLE",
-      "emoji": "",
       "advisor": "RESEARCH_CARD_1_SUBTITLE",
       "focus": "RESEARCH_CARD_1_CONTENT",
       "link": "#"
     },
     {
       "lab": "RESEARCH_CARD_2_TITLE",
-      "emoji": "",
       "advisor": "RESEARCH_CARD_2_SUBTITLE",
       "focus": "RESEARCH_CARD_2_CONTENT",
       "link": "#"
     },
     {
       "lab": "RESEARCH_CARD_3_TITLE",
-      "emoji": "",
       "focus": "RESEARCH_CARD_3_CONTENT",
       "link": "#"
     }

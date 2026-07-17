@@ -1,25 +1,17 @@
 {
   "_comment": "Replace the sample values in this file with your own information.",
-  "template": "academic",
-  "components": {},
-  "sections": [],
   "name": {
-    "full": "Sicheng He",
-    "first": "Sicheng",
-    "nickname": "",
-    "last": "He",
-    "display": "Sicheng He",
-    "authorVariants": ["Sicheng He"]
+    "display": "Sicheng He"
   },
   "title": "Wandering the planet of curiosity",
   "tagline": "TAGLINE_CONTENT",
   "sourceUrl": "https://github.com/Anle-He/Anle-He.github.io",
   "avatar": "starward-avatar.png",
   "skills": [
-    { "name": "SKILL_TAG_1", "icon": "FaBookOpen" },
-    { "name": "SKILL_TAG_2", "icon": "FaCode" },
-    { "name": "SKILL_TAG_3", "icon": "FaLightbulb" },
-    { "name": "SKILL_TAG_4", "icon": "FaGithub" }
+    { "name": "SKILL_TAG_1" },
+    { "name": "SKILL_TAG_2" },
+    { "name": "SKILL_TAG_3" },
+    { "name": "SKILL_TAG_4" }
   ],
   "contact": {
     "email": "sicheng_he@163.com",
@@ -27,18 +19,9 @@
   },
   "social": {
     "github": "https://github.com/Anle-He",
-    "linkedin": "",
-    "medium": "",
     "googleScholar": "https://scholar.google.com/citations?user=nntGcTkAAAAJ&hl=en",
-    "twitter": "",
-    "youtube": "",
-    "bilibili": "",
-    "zhihu": "",
-    "csdn": "",
     "blog": ""
   },
-  "pets": [],
-  "heroSocialIcons": [],
   "selectedPublicationIds": [
     "sample-paper-one",
     "sample-paper-two",

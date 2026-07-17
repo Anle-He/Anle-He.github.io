@@ -12,16 +12,9 @@ import siteJson from '@content/site.json'
 import siteJsonZh from '@content/zh/site.json'
 import { isZhLang } from './utils/lang'
 
-// ═══════════════════════════════════════════════════════════════
-// The config object — mirrors content/site.json
-// ═══════════════════════════════════════════════════════════════
-
-export const siteConfig = siteJson
-export const siteConfigZh = siteJsonZh
-
 /** Get site config for a given language. Accepts region-suffixed codes (zh-CN, zh-TW, ...). */
 export function getLocalizedSiteConfig(lang: string) {
-  return isZhLang(lang) ? siteConfigZh : siteJson
+  return isZhLang(lang) ? (siteJsonZh as typeof siteJson) : siteJson
 }
 
 // ═══════════════════════════════════════════════════════════════

@@ -103,7 +103,7 @@ npm run build
 - `palette.accentSoft`：深色模式强调色
 - 其余字段：页面背景、卡片、边框及文字颜色
 
-修改强调色时，还需同步调整 `src/index.css` 中带注释标记的文字选中高亮色。
+文字选中高亮色同样取自 `palette.accent`，修改强调色后会自动同步。
 
 ## 部署
 
