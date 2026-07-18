@@ -44,20 +44,39 @@ const FileLabel = ({ children }: { children: string }) => (
 )
 
 const SectionHeading = ({ command, title, id }: { command: string; title: string; id: string }) => (
-  <Flex id={id} align="center" gap={3} mb={5} scrollMarginTop="88px">
-    <Text fontFamily="mono" fontSize="xs" color="accent" whiteSpace="nowrap">
+  <Grid
+    id={id}
+    templateColumns={{ base: 'auto 1fr', sm: 'auto auto 1fr' }}
+    alignItems="center"
+    columnGap={3}
+    rowGap={1}
+    mb={5}
+    scrollMarginTop={{ base: '124px', lg: '88px' }}
+  >
+    <Text
+      gridColumn={{ base: '1 / -1', sm: 'auto' }}
+      fontFamily="mono"
+      fontSize="xs"
+      color="accent"
+      opacity={0.82}
+      whiteSpace="nowrap"
+    >
       $ {command}
     </Text>
     <Heading as="h2" fontSize={['xl', '2xl']} letterSpacing="0">
       {title}
     </Heading>
     <Box h="1px" flex={1} bg="borderSubtle" />
-  </Flex>
+  </Grid>
 )
 
 const AcademicHome = () => {
   const { t } = useTranslation()
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null)
+  const featuredPublicationShadow = useColorModeValue(
+    '0 12px 32px rgba(48, 43, 35, 0.05)',
+    '0 12px 32px rgba(0, 0, 0, 0.16)',
+  )
   const {
     about,
     awards,
@@ -175,13 +194,13 @@ const AcademicHome = () => {
 
         <Grid
           templateColumns={{ base: '1fr', md: 'minmax(0, 1fr) auto' }}
-          gap={[7, 9]}
+          gap={[5, 9]}
           alignItems="center"
           layerStyle="card"
           borderTop="0"
           borderRadius="0 0 20px 20px"
-          px={[6, 9, 12]}
-          py={[8, 11]}
+          px={[5, 9, 12]}
+          py={[6, 11]}
           boxShadow={useColorModeValue(
             '0 20px 54px rgba(48, 43, 35, 0.06)',
             '0 20px 54px rgba(0, 0, 0, 0.22)',
@@ -219,8 +238,8 @@ const AcademicHome = () => {
             <Text mt={3} maxW="720px" color="textMuted" fontSize={['sm', 'md']} lineHeight="1.8">
               {siteConfig.tagline}
             </Text>
-            <Flex mt={6} columnGap={4} rowGap={2} align="flex-start" wrap="wrap">
-              <VStack spacing={2} align="stretch">
+            <Flex mt={[5, 6]} columnGap={4} rowGap={2} align="flex-start" wrap="wrap">
+              <VStack spacing={2} align="stretch" w={{ base: 'full', sm: 'auto' }} maxW="full">
                 {contactEmails.map((item) => (
                   <Flex
                     key={item.address}
@@ -234,16 +253,27 @@ const AcademicHome = () => {
                     borderRadius="full"
                     transition="border-color 0.2s"
                     _hover={{ borderColor: 'accentHoverBorder' }}
+                    maxW="full"
                   >
                     <EmailIcon boxSize="13px" color={item.isWork ? 'accentGold' : 'accent'} />
-                    <Text fontFamily="mono" fontSize="xs" color="textMuted" whiteSpace="nowrap">
+                    <Text
+                      display={{ base: 'none', sm: 'block' }}
+                      fontFamily="mono"
+                      fontSize="xs"
+                      color="textMuted"
+                      whiteSpace="nowrap"
+                    >
                       {item.label}
                     </Text>
                     <Link
                       href={`mailto:${item.address}`}
                       fontFamily="mono"
-                      fontSize="sm"
+                      fontSize={{ base: 'xs', sm: 'sm' }}
                       color="textPrimary"
+                      minW={0}
+                      overflow="hidden"
+                      textOverflow="ellipsis"
+                      whiteSpace="nowrap"
                       _hover={{ color: 'accent', textDecoration: 'none' }}
                     >
                       {item.address}
@@ -263,7 +293,7 @@ const AcademicHome = () => {
                   </Flex>
                 ))}
               </VStack>
-              <VStack spacing={2} align="stretch">
+              <Flex gap={2} direction={{ base: 'row', md: 'column' }} wrap="wrap">
                 {[
                   siteOwner.social.github && ['GitHub', siteOwner.social.github],
                   siteOwner.social.googleScholar && ['Scholar', siteOwner.social.googleScholar],
@@ -295,7 +325,7 @@ const AcademicHome = () => {
                     </Link>
                   )
                 })}
-              </VStack>
+              </Flex>
             </Flex>
           </GridItem>
           <GridItem justifySelf={{ base: 'center', md: 'end' }}>
@@ -309,7 +339,7 @@ const AcademicHome = () => {
               <Image
                 src={withBase(`images/${siteConfig.avatar}`)}
                 alt={siteOwner.name.display}
-                boxSize={['164px', '196px']}
+                boxSize={['132px', '164px', '196px']}
                 objectFit="cover"
                 borderRadius="full"
               />
@@ -443,7 +473,7 @@ const AcademicHome = () => {
                               <Text
                                 as="span"
                                 fontFamily="mono"
-                                fontSize="2xs"
+                                fontSize="xs"
                                 whiteSpace="nowrap"
                                 {...(isCurrentCity
                                   ? {
@@ -467,7 +497,13 @@ const AcademicHome = () => {
                   </Flex>
                 </Box>
               </Box>
-              <Box layerStyle="card" p={5}>
+              <Box
+                py={[5, 6]}
+                px={[1, 2]}
+                borderTop="1px solid"
+                borderBottom="1px solid"
+                borderColor="borderSubtle"
+              >
                 <FileLabel>awards.json</FileLabel>
                 <SimpleGrid columns={{ base: 1, sm: 2, lg: Math.min(Math.max(awards.length, 1), 4) }} spacing={4}>
                   {awards.slice(0, 4).map((award) => (
@@ -495,7 +531,13 @@ const AcademicHome = () => {
           <Box>
             <SectionHeading id="research" command="cat interests.txt" title={t('research')} />
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-              <Box layerStyle="card" p={[5, 7]}>
+              <Box
+                p={[5, 7]}
+                bg="accentSubtleBg"
+                border="1px solid"
+                borderColor="accentSubtleBorder"
+                borderRadius="16px"
+              >
                 <Text color="textMuted" fontSize="sm" lineHeight="1.9">
                   {about.journey || t('empty')}
                 </Text>
@@ -554,9 +596,12 @@ const AcademicHome = () => {
                   templateColumns={{ base: '1fr', md: publication.featuredImage ? '220px 1fr' : '1fr' }}
                   gap={5}
                   layerStyle="card"
+                  bg={index === 0 ? 'cardBg' : 'transparent'}
+                  borderRadius={index === 0 ? '20px' : '14px'}
                   borderLeftWidth={index === 0 ? '3px' : '1px'}
                   borderLeftColor={index === 0 ? 'accent' : 'borderSubtle'}
-                  p={[5, 6]}
+                  p={index === 0 ? [5, 6] : [4, 5]}
+                  boxShadow={index === 0 ? featuredPublicationShadow : undefined}
                   transition="border-color 160ms ease"
                   _hover={{ borderColor: 'accentHoverBorder', borderLeftColor: 'accent' }}
                 >
@@ -618,7 +663,7 @@ const AcademicHome = () => {
                   key={project.title}
                   layerStyle="card"
                   p={5}
-                  minH="230px"
+                  minH={{ base: 'auto', md: '230px' }}
                   display="flex"
                   flexDirection="column"
                   transition="border-color 160ms ease"
@@ -634,7 +679,7 @@ const AcademicHome = () => {
                   <Wrap mt={4} spacing={1.5}>
                     {project.tags.slice(0, 3).map((tag) => (
                       <WrapItem key={tag}>
-                        <Text px={2} py={0.5} bg="softCardBg" borderRadius="full" fontSize="2xs" color="textMuted">
+                        <Text px={2} py={0.5} bg="softCardBg" borderRadius="full" fontSize="xs" color="textMuted">
                           {tag}
                         </Text>
                       </WrapItem>
@@ -704,7 +749,7 @@ const AcademicHome = () => {
         >
           <Flex direction={{ base: 'column', sm: 'row' }} justify="space-between" gap={3}>
             <Text>© {new Date().getFullYear()} {siteOwner.name.display} · {t('built')}</Text>
-            <HStack spacing={4}>
+            <Wrap spacingX={4} spacingY={2}>
               <Link href={`mailto:${siteOwner.contact.email}`} color="textMuted">{t('contact')}</Link>
               <Link href={safeHref(siteConfig.sourceUrl)} isExternal color="textMuted">Source</Link>
               <Link href="https://www.gnu.org/licenses/gpl-3.0.html" isExternal color="textMuted">GPL-3.0</Link>
@@ -712,7 +757,7 @@ const AcademicHome = () => {
               <Link href="https://github.com/Xin-Jiaqi/minimal-academic-homepage" isExternal color="textMuted">
                 Minimal Academic
               </Link>
-            </HStack>
+            </Wrap>
           </Flex>
         </Box>
       </Container>

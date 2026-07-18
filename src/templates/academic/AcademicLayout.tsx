@@ -207,6 +207,39 @@ const AcademicLayout = ({ children }: { children: ReactNode }) => {
               </HStack>
             </HStack>
           </Flex>
+
+          <Box
+            display={{ base: 'block', lg: 'none' }}
+            mt={3}
+            pt={2}
+            overflowX="auto"
+            borderTop="1px solid"
+            borderColor="borderSubtle"
+            sx={{
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': { display: 'none' },
+            }}
+          >
+            <HStack spacing={1.5} w="max-content">
+              {navItems.map(([label, id]) => (
+                <Link
+                  key={id}
+                  href={`#${id}`}
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  color="textMuted"
+                  fontSize="xs"
+                  fontWeight="600"
+                  whiteSpace="nowrap"
+                  _hover={{ bg: 'accentSubtleBg', color: 'accent', textDecoration: 'none' }}
+                  _focusVisible={{ outline: '2px solid', outlineColor: 'accent', outlineOffset: '1px' }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </HStack>
+          </Box>
         </Container>
       </Box>
       {children}

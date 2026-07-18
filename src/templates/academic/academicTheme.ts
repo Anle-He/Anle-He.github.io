@@ -92,8 +92,9 @@ const academicTheme = extendTheme({
   },
   styles: {
     global: {
-      body: {
+      'html, body, #root': {
         margin: 0,
+        background: 'appBg',
       },
       '::selection': {
         color: '#f8fafc',
